@@ -86,7 +86,6 @@ func take_damage(amount, from_dir: Vector3 = Vector3.ZERO):
 		return
 	
 	health -= amount
-	print("Enemy HP:", health)
 	anim.play("Hit_B")
 
 	# ✅ Knockback
