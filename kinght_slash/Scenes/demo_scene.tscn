@@ -1,0 +1,121 @@
+[gd_scene load_steps=11 format=3 uid="uid://po63m4srixl4"]
+
+[ext_resource type="Script" uid="uid://buxsk3bw1g2r0" path="res://Scenes/demo_scene.gd" id="1_foia1"]
+[ext_resource type="PackedScene" uid="uid://m6b3akjblgoy" path="res://kinght/Knight.tscn" id="1_jpanv"]
+[ext_resource type="PackedScene" uid="uid://0t0qb3qjq6my" path="res://Scenes/PlatformRed.tscn" id="2_4lh3q"]
+[ext_resource type="Script" uid="uid://b8j68it8eh6qm" path="res://Scripts/DeadZone.gd" id="4_8ry15"]
+[ext_resource type="Script" uid="uid://po8axqax4if2" path="res://Scenes/control.gd" id="5_jpanv"]
+[ext_resource type="Script" uid="uid://en2h3dvj6kx3" path="res://Scripts/GameManager.gd" id="6_8fvkd"]
+[ext_resource type="PackedScene" uid="uid://b4ioih73fhms5" path="res://enemy/Skeleton_Minion.tscn" id="7_foia1"]
+
+[sub_resource type="Environment" id="Environment_g4ka7"]
+background_mode = 1
+ambient_light_source = 2
+ambient_light_color = Color(0.662745, 0.694118, 0.772549, 1)
+ambient_light_energy = 1.15
+tonemap_mode = 2
+tonemap_exposure = 0.75
+ssr_enabled = true
+ssao_enabled = true
+ssao_radius = 0.45
+ssao_intensity = 1.0
+ssao_power = 15.0
+ssil_enabled = true
+sdfgi_use_occlusion = true
+glow_enabled = true
+glow_intensity = 2.0
+fog_light_color = Color(0.647059, 0.678431, 0.72549, 1)
+volumetric_fog_temporal_reprojection_enabled = false
+adjustment_enabled = true
+adjustment_brightness = 1.06
+adjustment_contrast = 0.95
+adjustment_saturation = 1.09
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_asf4q"]
+size = Vector3(128, 17, 112)
+
+[sub_resource type="Curve3D" id="Curve3D_foia1"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -22.0485, 0, 36.4004, 0, 0, 0, 0, 0, 0, -26.6126, 0, 31.0064, 0, 0, 0, 0, 0, 0, -29.932, 0, 27.5487, 0, 0, 0, 0, 0, 0, -33.2514, 0, 16.8989, 0, 0, 0, 0, 0, 0, -32.6982, 0, 9.43025, 0, 0, 0, 0, 0, 0, -33.5281, 0, -0.66626, 0, 0, 0, 0, 0, 0, -32.9748, 0, -8.96477, 0, 0, 0, 0, 0, 0, -32.2833, 0, -20.5827, 0, 0, 0, 0, 0, 0, -30.0703, 0, -27.6364, 0, 0, 0, 0, 0, 0, -26.4743, 0, -31.7857, 0, 0, 0, 0, 0, 0, -19.144, 0, -36.4882, 0, 0, 0, 0, 0, 0, -6.97284, 0, -37.7329, 0, 0, 0, 0, 0, 0, -0.334029, 0, -37.8712, 0, 0, 0, 0, 0, 0, 9.20925, 0, -37.4563, 0, 0, 0, 0, 0, 0, 17.5078, 0, -37.5946, 0, 0, 0, 0, 0, 0, 22.6252, 0, -34.2752, 0, 0, 0, 0, 0, 0, 28.4341, 0, -28.1896, 0, 0, 0, 0, 0, 0, 30.9237, 0, -18.6464, 0, 0, 0, 0, 0, 0, 32.4451, 0, -4.26228, 0, 0, 0, 0, 0, 0, 31.8918, 0, 2.23821, 0, 0, 0, 0, 0, 0, 31.3386, 0, 10.3984, 0, 0, 0, 0, 0, 0, 31.4769, 0, 15.5158, 0, 0, 0, 0, 0, 0, 28.7107, 0, 25.0591, 0, 0, 0, 0, 0, 0, 24.1466, 0, 31.6979, 0, 0, 0, 0, 0, 0, 19.3058, 0, 35.1556, 0, 0, 0, 0, 0, 0, 10.5923, 0, 36.4004, 0, 0, 0, 0, 0, 0, 1.74059, 0, 36.8153, 0, 0, 0, 0, 0, 0, -8.21761, 0, 37.5069, 0, 0, 0, 0, 0, 0, -16.6544, 0, 37.3686),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 29
+
+[node name="DemoScene" type="Node3D"]
+script = ExtResource("1_foia1")
+enemy_scene = ExtResource("7_foia1")
+
+[node name="Player" parent="." instance=ExtResource("1_jpanv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.38997, 0)
+
+[node name="Platforms" type="Node3D" parent="."]
+
+[node name="PlatformRed" parent="Platforms" instance=ExtResource("2_4lh3q")]
+transform = Transform3D(34.7484, 0, 0, 0, 0.39312, 0, 0, 0, 40.0539, 0.0649705, 3, 0.0767078)
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_g4ka7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(-0.898603, 0.438763, 2.98254e-08, 0.146657, 0.300359, 0.942484, 0.413527, 0.846919, -0.334251, 9.04457, 6.63937, -28.4749)
+shadow_enabled = true
+
+[node name="Extras" type="Node3D" parent="."]
+
+[node name="SpawnPosition" type="Marker3D" parent="Extras"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+
+[node name="GameManager" type="Node3D" parent="."]
+script = ExtResource("6_8fvkd")
+
+[node name="DeadZone" type="Area3D" parent="."]
+script = ExtResource("4_8ry15")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DeadZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -9, 0)
+shape = SubResource("BoxShape3D_asf4q")
+
+[node name="userinterface" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="userinterface"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 532.0
+offset_bottom = 178.0
+script = ExtResource("5_jpanv")
+
+[node name="HP_Back" type="ColorRect" parent="userinterface/Control"]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 40.0
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="HP_Fill" type="ColorRect" parent="userinterface/Control"]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 40.0
+color = Color(0, 1, 0.4, 1)
+
+[node name="HP_Label" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 10.0
+offset_right = 216.0
+offset_bottom = 33.0
+text = "\"100%\""
+
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.47917, 0)
+curve = SubResource("Curve3D_foia1")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(0.763387, 0, 0.645942, 0, 1, 0, -0.645942, 0, 0.763387, -22.0485, 0, 36.4004)
+
+[connection signal="body_entered" from="DeadZone" to="DeadZone" method="_on_body_entered"]
