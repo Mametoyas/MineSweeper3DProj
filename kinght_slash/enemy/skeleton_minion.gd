@@ -82,5 +82,10 @@ func take_damage(amount):
 func die():
 	is_dead = true
 	anim.play("Death_C_Skeletons")
+
+	# ✅ ให้ EXP แก่ผู้เล่น
+	if player:
+		player.gain_exp(30)  # ค่าประสบการณ์ต่อศัตรู 1 ตัว
+
 	await anim.animation_finished
 	queue_free()

@@ -18,3 +18,6 @@ func update_hp_bar():
 	var percent = float(current_hp) / float(max_hp)
 	hp_fill.size.x = hp_back.size.x * percent
 	hp_label.text = str(int(percent * 100)) + "%"
+
+func update_level(lv: int, current_exp: int, next_exp: int):
+	$LevelLabel.text = "Lv. " + str(lv) + " (" + str(current_exp) + "/" + str(next_exp) + ")"

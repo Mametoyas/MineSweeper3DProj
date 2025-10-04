@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://cvkv4cq03pprh"]
+[gd_scene load_steps=3 format=3 uid="uid://cvkv4cq03pprh"]
 
+[ext_resource type="Script" uid="uid://b417idxf33tkg" path="res://ui/ui.gd" id="1_ks8t7"]
 [ext_resource type="Texture2D" uid="uid://dvj0t0y1epgee" path="res://ui/menu.png" id="1_nb4k0"]
 
 [node name="Control" type="Control"]
@@ -9,8 +10,41 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_ks8t7")
 
 [node name="Menu" type="Sprite2D" parent="."]
-position = Vector2(577, 322)
-scale = Vector2(1.4799, 0.662109)
+position = Vector2(953, 526)
+scale = Vector2(2.46857, 1.07455)
 texture = ExtResource("1_nb4k0")
+
+[node name="StartButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1277.0
+offset_top = 353.0
+offset_right = 1877.0
+offset_bottom = 423.0
+flat = true
+
+[node name="OptionsButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1285.0
+offset_top = 461.0
+offset_right = 1885.0
+offset_bottom = 531.0
+flat = true
+
+[node name="TutorialButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1285.0
+offset_top = 565.0
+offset_right = 1885.0
+offset_bottom = 635.0
+flat = true
+
+[node name="ExitButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1279.0
+offset_top = 675.0
+offset_right = 1879.0
+offset_bottom = 745.0
+flat = true

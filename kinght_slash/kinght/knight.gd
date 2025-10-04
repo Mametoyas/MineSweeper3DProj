@@ -23,6 +23,9 @@ var combo_buffer_time = 0.3
 var max_hp = 100
 var hp = 100
 var hit_targets = []
+var level: int = 1
+var current_exp: int = 0
+var exp_to_next: int = 100 
 
 @onready var attack_area_ab = $Rig/AttackArea
 @onready var attack_area_final = $Rig/attack_area_final
@@ -160,3 +163,25 @@ func take_damage(amount):
 	print("Player HP:", hp)
 	if hp <= 0:
 		print("Player is dead!")
+		
+func gain_exp(amount: int):
+	current_exp += amount
+	print("Gained", amount, "EXP (", current_exp, "/", exp_to_next, ")")
+	if current_exp >= exp_to_next:
+		level_up()
+		
+func level_up():
+	current_exp -= exp_to_next
+	level += 1
+
+	# เพิ่มสเตตตอนเลเวลอัป
+	max_hp += 20
+	hp = max_hp
+	print("LEVEL UP! →", level, "HP:", hp)
+
+	# เพิ่มความยากของการอัปเลเวลต่อไป
+	exp_to_next = int(exp_to_next * 1.5)
+
+	# อัปเดต UI ถ้ามี
+	if ui.has_method("update_level"):
+		ui.update_level(level, current_exp, exp_to_next)
