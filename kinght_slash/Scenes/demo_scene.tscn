@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://po63m4srixl4"]
+[gd_scene load_steps=10 format=3 uid="uid://po63m4srixl4"]
 
 [ext_resource type="Script" uid="uid://buxsk3bw1g2r0" path="res://Scenes/demo_scene.gd" id="1_foia1"]
 [ext_resource type="PackedScene" uid="uid://m6b3akjblgoy" path="res://kinght/Knight.tscn" id="1_jpanv"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://po8axqax4if2" path="res://Scenes/control.gd" id="5_jpanv"]
 [ext_resource type="Script" uid="uid://en2h3dvj6kx3" path="res://Scripts/GameManager.gd" id="6_8fvkd"]
 [ext_resource type="PackedScene" uid="uid://b4ioih73fhms5" path="res://enemy/Skeleton_Minion.tscn" id="7_foia1"]
+[ext_resource type="Texture2D" uid="uid://bosqvhnrjgcmc" path="res://ui/skill_tornado.png" id="7_r4wj5"]
 
 [sub_resource type="Environment" id="Environment_g4ka7"]
 background_mode = 1
@@ -78,30 +79,88 @@ script = ExtResource("5_jpanv")
 
 [node name="HP_Back" type="ColorRect" parent="userinterface/Control"]
 layout_mode = 0
-offset_right = 400.0
-offset_bottom = 40.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 410.0
+offset_bottom = 50.0
 color = Color(0.2, 0.2, 0.2, 1)
 
 [node name="HP_Fill" type="ColorRect" parent="userinterface/Control"]
 layout_mode = 0
-offset_right = 400.0
-offset_bottom = 40.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 410.0
+offset_bottom = 50.0
 color = Color(0, 1, 0.4, 1)
 
 [node name="HP_Label" type="Label" parent="userinterface/Control"]
 layout_mode = 0
-offset_left = 160.0
-offset_top = 10.0
-offset_right = 216.0
-offset_bottom = 33.0
-text = "\"100%\""
+offset_left = 162.0
+offset_top = 15.0
+offset_right = 218.0
+offset_bottom = 38.0
+text = "100%"
 
-[node name="LevelLabel" type="Label" parent="userinterface/Control"]
+[node name="EXP_Back" type="ColorRect" parent="userinterface/Control"]
 layout_mode = 0
-offset_top = 38.0
-offset_right = 49.0
-offset_bottom = 61.0
-text = "\"Lv. 1\""
+offset_left = 10.0
+offset_top = 50.0
+offset_right = 360.0
+offset_bottom = 90.0
+color = Color(0.133333, 0.133333, 0.133333, 1)
+
+[node name="EXP_Fill" type="ColorRect" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 50.0
+offset_right = 360.0
+offset_bottom = 90.0
+color = Color(0, 0.666667, 1, 1)
+
+[node name="EXP_Label" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 57.0
+offset_right = 217.0
+offset_bottom = 80.0
+text = "Lv. 1"
+
+[node name="ColorRect" type="ColorRect" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 90.0
+offset_right = 90.0
+offset_bottom = 130.0
+color = Color(0.851006, 0.716297, 1.92523e-06, 1)
+
+[node name="Level_Label" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 98.0
+offset_right = 63.0
+offset_bottom = 121.0
+text = "Lv. 1"
+
+[node name="DamageFlash" type="ColorRect" parent="userinterface/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(32.2004, 18.2039)
+mouse_filter = 2
+color = Color(1, 0, 0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="userinterface/Control"]
+position = Vector2(70, 658)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("7_r4wj5")
+
+[node name="SkillCooldownLabel" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 648.0
+offset_right = 92.0
+offset_bottom = 671.0
+text = "1"
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 wait_time = 3.0

@@ -7,6 +7,8 @@ extends CharacterBody3D
 @export var jump_force : float = 5
 @export var follow_lerp_factor : float = 4
 @export var jump_limit : int = 2
+@export var skill_cooldown: float = 5.0  # คูลดาวน์ 5 วิ
+
 
 @export_group("Game Juice")
 @export var jumpStretchSize := Vector3(0.8, 1.2, 0.8)
@@ -26,8 +28,10 @@ var hit_targets = []
 var level: int = 1
 var current_exp: int = 0
 var exp_to_next: int = 100 
+var is_dead = false
+var can_use_skill: bool = true
 
-@onready var attack_area_ab = $Rig/AttackArea
+
 @onready var attack_area_final = $Rig/attack_area_final
 # Onready Variables
 @onready var model = $Rig
@@ -46,6 +50,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * 2
 # ---------- FUNCTIONS ---------- #
 
 func _process(delta):
+	if is_dead:
+		return
 	player_animations()
 	get_input(delta)
 	
@@ -66,6 +72,8 @@ func _process(delta):
 			perform_attack()
 		elif is_attacking:
 			attack_queued = true
+	if Input.is_action_just_pressed("skill") and can_use_skill:
+		use_spin_skill()
 	
 	velocity.y -= gravity * delta
 	
@@ -93,19 +101,19 @@ func perform_attack():
 	if use_final_hitbox:
 		attack_area_final.monitoring = true
 	else:
-		attack_area_ab.monitoring = true
+		attack_area.monitoring = true
 
 	# ✅ เปิด hitbox ให้ตรงท่า
 	if use_final_hitbox:
 		attack_area_final.monitoring = true
 	else:
-		attack_area_ab.monitoring = true
+		attack_area.monitoring = true
 
 	animation.play(attack_anim)
 	await animation.animation_finished
 
 	# ✅ ปิด hitbox หลังตีจบ
-	attack_area_ab.monitoring = false
+	attack_area.monitoring = false
 	attack_area_final.monitoring = false
 	is_attacking = false
 
@@ -118,12 +126,14 @@ func perform_attack():
 	
 func _on_attack_area_body_entered(body):
 	if body.is_in_group("Enemy") and body not in hit_targets:
-		body.take_damage(10)
+		var dir = (body.global_position - global_position).normalized()
+		body.take_damage(10, dir)
 		hit_targets.append(body)  # ✅ ป้องกันดาเมจซ้ำในฟันเดียวกัน
 
 func _on_attack_area_final_body_entered(body):
 	if body.is_in_group("Enemy") and body not in hit_targets:
-		body.take_damage(25)
+		var dir = (body.global_position - global_position).normalized()
+		body.take_damage(25, dir)
 		hit_targets.append(body)
 
 func is_moving():
@@ -158,30 +168,90 @@ func player_animations():
 			animation.play("2H_Melee_Idle", 0.5)
 			
 func take_damage(amount):
+	if is_dead:  # ✅ ถ้าตายแล้ว ไม่รับดาเมจอีก
+		return
 	hp -= amount
-	ui.set_hp(hp)
-	print("Player HP:", hp)
+	if ui:
+		ui.set_hp(hp, max_hp)
+		ui.flash_screen_red()
+	print("Player HP:", hp, "/", max_hp)
+	
+	play_hit_animation()
+
 	if hp <= 0:
-		print("Player is dead!")
+		is_dead = true
+		play_death_animation()
 		
 func gain_exp(amount: int):
 	current_exp += amount
 	print("Gained", amount, "EXP (", current_exp, "/", exp_to_next, ")")
+	
 	if current_exp >= exp_to_next:
 		level_up()
-		
+
+	# ✅ อัปเดตแถบ EXP (เปอร์เซ็นต์ที่มีต่อเลเวล)
+	if ui:
+		var percent = float(current_exp) / float(exp_to_next)
+		ui.update_exp_bar(percent)	
+
 func level_up():
 	current_exp -= exp_to_next
 	level += 1
-
-	# เพิ่มสเตตตอนเลเวลอัป
 	max_hp += 20
 	hp = max_hp
-	print("LEVEL UP! →", level, "HP:", hp)
-
-	# เพิ่มความยากของการอัปเลเวลต่อไป
 	exp_to_next = int(exp_to_next * 1.5)
+	print("LEVEL UP! →", level)
 
-	# อัปเดต UI ถ้ามี
-	if ui.has_method("update_level"):
-		ui.update_level(level, current_exp, exp_to_next)
+	# ✅ รีเซ็ตแถบ EXP เป็น 0
+	if ui:
+		ui.update_exp_bar(0.0)
+		ui.update_level(level)
+		ui.set_hp(hp, max_hp)
+		ui.show_skill_cooldown(skill_cooldown)
+	
+func play_death_animation():
+	can_attack = false
+	is_attacking = false
+	velocity = Vector3.ZERO  # หยุดการเคลื่อนไหว
+	animation.play("Death_B")  # ✅ ชื่อแอนิเมชันตายของคุณ
+	
+	await animation.animation_finished  # รอให้เล่นจบก่อน
+	
+	await get_tree().create_timer(4.0).timeout
+	get_tree().change_scene_to_file("res://ui/game_over.tscn")  # ไปหน้า Game Over
+
+func play_hit_animation():
+	# ถ้ายังไม่ตาย และไม่ได้กำลังโจมตี → เล่นท่าโดนตีได้
+	if not is_attacking and not is_dead:
+		animation.play("Hit_A")  # 🩸 ใส่ชื่อแอนิเมชันให้ตรงใน AnimationPlayer
+
+		# หยุดขยับชั่วคราวระหว่างโดนตี
+		velocity = Vector3.ZERO
+		can_attack = false
+
+		await animation.animation_finished
+
+		can_attack = true  # ✅ กลับมาโจมตีได้หลังแอนิเมชันจบ
+		
+func use_spin_skill():
+	can_use_skill = false
+	is_attacking = true
+	animation.play("2H_Melee_Attack_Spinning")  # ✅ เปลี่ยนชื่อให้ตรงกับ animation ของคุณ
+
+	# ✅ เปิด hitbox พิเศษของสกิล (ใช้ AttackArea หรือใหม่ก็ได้)
+	attack_area.monitoring = true
+
+	# ทำดาเมจรอบตัวทันที
+	for body in attack_area.get_overlapping_bodies():
+		if body.is_in_group("Enemy"):
+			var dir = (body.global_position - global_position).normalized()
+			body.take_damage(30, dir)  # โจมตีแรงกว่าปกติ
+
+	# ✅ รอแอนิเมชันจบ
+	await animation.animation_finished
+	attack_area.monitoring = false
+	is_attacking = false
+
+	# ✅ รอคูลดาวน์ก่อนใช้ใหม่
+	await get_tree().create_timer(skill_cooldown).timeout
+	can_use_skill = true

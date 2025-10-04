@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bidy0o0gjb0py"]
+[gd_scene load_steps=3 format=3 uid="uid://bidy0o0gjb0py"]
 
-[ext_resource type="Texture2D" uid="uid://de2iu5vwau3sx" path="res://ui/game over.png" id="1_oo8kp"]
+[ext_resource type="Script" uid="uid://bnrbgu3q7d561" path="res://ui/game_over.gd" id="1_5eixk"]
+[ext_resource type="Texture2D" uid="uid://coyn7tpacsfob" path="res://ui/gameover.png" id="1_oo8kp"]
 
 [node name="game over" type="Control"]
 layout_mode = 3
@@ -9,8 +10,26 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_5eixk")
 
 [node name="GameOver" type="Sprite2D" parent="."]
-position = Vector2(576.5, 321.5)
-scale = Vector2(1.48618, 0.655273)
+position = Vector2(959, 496)
+scale = Vector2(2.70941, 1.15441)
 texture = ExtResource("1_oo8kp")
+
+[node name="RETRY" type="Button" parent="."]
+layout_mode = 0
+offset_left = 591.0
+offset_top = 656.0
+offset_right = 1331.0
+offset_bottom = 791.0
+flat = true
+
+[node name="EXIT" type="Button" parent="."]
+layout_mode = 0
+offset_left = 632.0
+offset_top = 840.0
+offset_right = 1282.0
+offset_bottom = 975.0
+keep_pressed_outside = true
+flat = true
