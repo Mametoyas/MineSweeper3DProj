@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://cvkv4cq03pprh"]
+
+[ext_resource type="Texture2D" uid="uid://dvj0t0y1epgee" path="res://ui/menu.png" id="1_nb4k0"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menu" type="Sprite2D" parent="."]
+position = Vector2(577, 322)
+scale = Vector2(1.4799, 0.662109)
+texture = ExtResource("1_nb4k0")
