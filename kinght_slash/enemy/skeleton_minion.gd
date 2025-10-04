@@ -68,8 +68,6 @@ func attack():
 	await anim.animation_finished
 	can_attack = true
 
-
-
 func take_damage(amount):
 	if is_dead:
 		return
