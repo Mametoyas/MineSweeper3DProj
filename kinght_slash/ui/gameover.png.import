@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://csae0np4unygg"
-path="res://.godot/imported/SDSplashScreen.png-70dbd3fb2976ebd6d77830919501bab5.ctex"
+uid="uid://coyn7tpacsfob"
+path="res://.godot/imported/gameover.png-c84db8bdddf1632f87a5d4fe44949b5d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Resources/SDSplashScreen.png"
-dest_files=["res://.godot/imported/SDSplashScreen.png-70dbd3fb2976ebd6d77830919501bab5.ctex"]
+source_file="res://ui/gameover.png"
+dest_files=["res://.godot/imported/gameover.png-c84db8bdddf1632f87a5d4fe44949b5d.ctex"]
 
 [params]
 

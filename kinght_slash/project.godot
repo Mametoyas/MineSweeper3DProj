@@ -16,7 +16,6 @@ config/tags=PackedStringArray("starterkit")
 run/main_scene="uid://cvkv4cq03pprh"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(0.0941176, 0.101961, 0.109804, 1)
-boot_splash/image="res://Assets/Resources/SDSplashScreen.png"
 config/icon="res://Assets/Resources/3DPlatformerStarterIcon.svg"
 
 [autoload]
