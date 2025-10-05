@@ -21,6 +21,8 @@ var current_hp := 100
 
 @onready var skill_cd_label = $SkillCooldownLabel
 
+@onready var combo_label = $ComboLabel
+
 var current_options = []
 var player_ref = null
 
@@ -35,7 +37,7 @@ func _upgrade_attack(p):
 	p.attack_damage += 5
 
 func _upgrade_attack_speed(p):
-	p.attack_cooldown *= 0.9
+	p.attack_cooldown *= 0.8
 
 func _upgrade_skill_power(p):
 	p.skill_power *= 1.2
@@ -112,13 +114,32 @@ func _upgrade_armor(p):
 func _upgrade_attack_range(p):
 	p.attack_range_bonus = (p.attack_range_bonus if p.has_meta("attack_range_bonus") else 0.0) + 0.5
 	print("⚔️ Attack range increased!")
+	
+# โอกาสดูดเลือดเมื่อโจมตี (Life Steal)
+func _upgrade_lifesteal(p):
+	p.lifesteal = (p.lifesteal if p.has_meta("lifesteal") else 0.0) + 0.05
+	print("🩸 Life Steal +5%! Heal when dealing damage.")
 
+# เพิ่มดาเมจจากคอมโบ (Combo Power)
+func _upgrade_combo_damage(p):
+	p.combo_damage_boost = (p.combo_damage_boost if p.has_meta("combo_damage_boost") else 0.0) + 0.1
+	print("⚡ Combo Damage +10%! Each hit gets stronger in a combo.")
+		
+# Double Slash — มีโอกาสตีซ้ำทันที
+func _upgrade_double_slash(p):
+	p.double_slash_chance = (p.double_slash_chance if p.has_meta("double_slash_chance") else 0.0) + 0.15
+	print("⚔️ Double Slash +15%! Chance to hit twice per swing!")
+	
+# Critical Heal — ฟื้น HP เมื่อคริติคัล
+func _upgrade_crit_heal(p):
+	p.crit_heal = (p.crit_heal if p.has_meta("crit_heal") else 0.0) + 0.05
+	print("💖 Heal 5% HP on critical hits!")
 
 # ---- รวมเข้าในลิสต์ ---- #
 var upgrades = [
 	{"name": "Max HP +20", "effect": _upgrade_max_hp},
 	{"name": "Attack +5", "effect": _upgrade_attack},
-	{"name": "Attack Speed +10%", "effect": _upgrade_attack_speed},
+	{"name": "Attack Speed +20%", "effect": _upgrade_attack_speed},
 	{"name": "Skill Power +20%", "effect": _upgrade_skill_power},
 	{"name": "Move Speed +10%", "effect": _upgrade_move_speed},
 	{"name": "Gain More EXP +20%", "effect": _upgrade_exp_gain},
@@ -132,6 +153,9 @@ var upgrades = [
 	{"name": "Berserk Mode", "effect": _upgrade_berserk},
 	{"name": "Armor +20%", "effect": _upgrade_armor},
 	{"name": "Attack Range +50%", "effect": _upgrade_attack_range},
+	{"name": "Life Steal +5%", "effect": _upgrade_lifesteal},
+	{"name": "Combo Damage +10%", "effect": _upgrade_combo_damage},
+	{"name": "Double Slash +15%", "effect": _upgrade_double_slash},
 ]
 
 
@@ -231,3 +255,15 @@ func _unhandled_input(event):
 		_on_choice_pressed(1)
 	if event.is_action_pressed("choose_3"):
 		_on_choice_pressed(2)
+
+func show_combo(count: int, tier: String):
+	combo_label.visible = true
+	combo_label.text = "COMBO " + str(count) + "  [" + tier + "]"
+	combo_label.modulate = Color(1, 0.8, 0.2)  # สีทอง
+
+	var tween = get_tree().create_tween()
+	combo_label.scale = Vector2(1.5, 1.5)
+	tween.tween_property(combo_label, "scale", Vector2(1, 1), 0.2)
+
+func hide_combo():
+	combo_label.visible = false

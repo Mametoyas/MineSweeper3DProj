@@ -189,6 +189,14 @@ layout_mode = 2
 [node name="Button3" type="Button" parent="userinterface/Control/UpgradePanel/VBoxContainer"]
 layout_mode = 2
 
+[node name="ComboLabel" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 1082.0
+offset_top = 39.0
+offset_right = 1122.0
+offset_bottom = 62.0
+scale = Vector2(3, 3)
+
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true

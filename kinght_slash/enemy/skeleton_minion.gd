@@ -1,50 +1,75 @@
 extends CharacterBody3D
 
+# ---------- CONFIG ---------- #
 @export var move_speed: float = 2.5
-@export var health: int = 40
+@export var max_health: int = 40
 @export var attack_damage: int = 10
 @export var attack_range: float = 1.8
 @export var attack_cooldown: float = 1.2
+@export var active_distance: float = 40.0
 
-@onready var anim = $Rig/AnimationPlayer
-@onready var attack_area = $AttackArea
+# ---------- REFERENCES ---------- #
+@onready var anim: AnimationPlayer = $Rig/AnimationPlayer
+@onready var attack_area: Area3D = $AttackArea
+@onready var player: CharacterBody3D = get_tree().get_first_node_in_group("Player")
 
-var player: CharacterBody3D = null
-var can_attack = true
-var is_dead = false
+# ---------- STATE ---------- #
+var health: int = 0
+var can_attack: bool = true
+var is_dead: bool = false
+var spawner: Node = null  # สำหรับคืนกลับ Pool
 
-# ----- Knockback -----
+# ---------- Knockback ---------- #
 var knockback_velocity: Vector3 = Vector3.ZERO
 var knockback_strength: float = 6.0
 var knockback_friction: float = 10.0
 
 
-func _ready():
-	player = get_tree().get_first_node_in_group("Player")
+# ------------------------------------------------------
+# 🧠 เริ่มต้นหรือรีเซ็ตใหม่ตอนดึงจาก Pool
+# ------------------------------------------------------
+func reset_state():
+	is_dead = false
+	can_attack = true
+	health = max_health
+	knockback_velocity = Vector3.ZERO
+	attack_area.monitoring = true
+	set_physics_process(true)
+	visible = true
+	anim.play("Idle_Combat")
 
 
+# ------------------------------------------------------
+# 🦴 ฟิสิกส์การเคลื่อนที่และต่อสู้
+# ------------------------------------------------------
 func _physics_process(delta):
-	if is_dead:
-		return
-	
-	if not player:
-		anim.play("Idle_Combat")
+	if is_dead or not player:
 		return
 
-	var dir = (player.global_position - global_position)
+	var dir = player.global_position - global_position
 	dir.y = 0
 	var distance = dir.length()
 
-	# ✅ ถ้ามีแรง knockback ให้ใช้ก่อน
+	# ✅ ถ้ามีแรง Knockback
 	if knockback_velocity.length() > 0.1:
 		velocity = knockback_velocity
 		move_and_slide()
-
 		knockback_velocity = knockback_velocity.move_toward(Vector3.ZERO, knockback_friction * delta)
-		return  # ขณะเด้ง ไม่เดินหรือโจมตี
+		return
 
-	# ✅ ถ้ายังไม่ถึงระยะโจมตี → เดินเข้าหา
-	if distance > attack_range:
+	# ✅ ถ้าอยู่ไกลเกิน active_distance → Idle
+	if distance > active_distance:
+		anim.play("Idle_Combat")
+		return
+
+	# ✅ ถ้าอยู่ในระยะโจมตี
+	if distance <= attack_range:
+		velocity = Vector3.ZERO
+		move_and_slide()
+		if can_attack:
+			attack()
+	else:
+		# ✅ เดินเข้าหา Player
 		anim.play("Walking_D_Skeletons")
 		dir = dir.normalized()
 		var target_rot = atan2(dir.x, dir.z)
@@ -52,39 +77,37 @@ func _physics_process(delta):
 		velocity.x = dir.x * move_speed
 		velocity.z = dir.z * move_speed
 		move_and_slide()
-	else:
-		velocity = Vector3.ZERO
-		move_and_slide()
-		if can_attack:
-			attack()
 
 
+# ------------------------------------------------------
+# ⚔️ ฟังก์ชันโจมตี
+# ------------------------------------------------------
 func attack():
 	can_attack = false
 	anim.play("1H_Melee_Attack_Jump_Chop")
 
-	# ✅ รอช่วงฟันถึง (0.6 วิ)
-	await get_tree().create_timer(0.6).timeout
+	await get_tree().create_timer(0.6).timeout  # จังหวะฟัน
 
-	# ถ้าตายหรือถูกขัดระหว่างตี → ยกเลิก
-	if is_dead or not anim.is_playing():
+	if is_dead:
 		can_attack = true
 		return
 
-	# ✅ ตรวจว่าผู้เล่นยังอยู่ในระยะตอนฟันถึงไหม
-	if player and not is_dead:
-		var dist = (player.global_position - global_position).length()
-		if dist <= attack_range:
-			player.take_damage(attack_damage)
+	var dist = (player.global_position - global_position).length()
+	if dist <= attack_range:
+		player.take_damage(attack_damage)
 
 	await anim.animation_finished
+	await get_tree().create_timer(attack_cooldown).timeout
 	can_attack = true
 
 
-func take_damage(amount, from_dir: Vector3 = Vector3.ZERO):
+# ------------------------------------------------------
+# 💥 ฟังก์ชันเมื่อโดนตี
+# ------------------------------------------------------
+func take_damage(amount: float, from_dir: Vector3 = Vector3.ZERO):
 	if is_dead:
 		return
-	
+
 	health -= amount
 	anim.play("Hit_B")
 
@@ -96,13 +119,25 @@ func take_damage(amount, from_dir: Vector3 = Vector3.ZERO):
 		die()
 
 
+# ------------------------------------------------------
+# ☠️ ฟังก์ชันตอนตาย
+# ------------------------------------------------------
 func die():
 	is_dead = true
 	anim.play("Death_C_Skeletons")
+	set_physics_process(false)
+	attack_area.monitoring = false
 
-	# ✅ ให้ EXP แก่ผู้เล่น
+	# ✅ ให้ EXP แก่ Player
 	if player and player.has_method("gain_exp"):
 		player.gain_exp(30)
 
 	await anim.animation_finished
-	queue_free()
+
+	# ✅ คืนเข้าพูลแทน queue_free()
+	if spawner and spawner.has_method("return_enemy_to_pool"):
+		spawner.return_enemy_to_pool(self)
+	elif has_meta("spawner"):
+		get_meta("spawner").return_enemy_to_pool(self)
+	else:
+		queue_free()
