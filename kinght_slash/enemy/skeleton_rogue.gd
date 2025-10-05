@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 # ---------- CONFIG ---------- #
-@export var move_speed: float = 7
+@export var move_speed: float = 5
 @export var max_health: int = 30
 @export var attack_damage: int = 5
 @export var attack_range: float = 1.8

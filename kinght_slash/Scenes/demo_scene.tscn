@@ -316,16 +316,16 @@ mouse_filter = 2
 color = Color(1, 0, 0, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="userinterface/Control"]
-position = Vector2(59.84, 838.84)
+position = Vector2(59.84, 836.84)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("7_r4wj5")
 
 [node name="SkillCooldownLabel" type="Label" parent="userinterface/Control"]
 layout_mode = 0
 offset_left = 99.84
-offset_top = 826.84
+offset_top = 824.84
 offset_right = 187.84
-offset_bottom = 849.84
+offset_bottom = 847.84
 text = "Skill Ready!"
 
 [node name="UpgradePanel" type="Control" parent="userinterface/Control"]
@@ -379,35 +379,35 @@ offset_bottom = 771.0
 [node name="walk" type="Label" parent="userinterface/Control"]
 layout_mode = 0
 offset_left = 28.84
-offset_top = 878.84
+offset_top = 876.84
 offset_right = 148.84
-offset_bottom = 927.84
+offset_bottom = 925.84
 text = "w,a,s,d for walk
 "
 
 [node name="attack" type="Label" parent="userinterface/Control"]
 layout_mode = 0
 offset_left = 166.84
-offset_top = 878.84
+offset_top = 876.84
 offset_right = 309.84
-offset_bottom = 927.84
+offset_bottom = 925.84
 text = "left click for attack
 "
 
 [node name="dash" type="Label" parent="userinterface/Control"]
 layout_mode = 0
 offset_left = 26.84
-offset_top = 908.84
+offset_top = 906.84
 offset_right = 129.84
-offset_bottom = 931.84
+offset_bottom = 929.84
 text = "shift for dash"
 
 [node name="skill" type="Label" parent="userinterface/Control"]
 layout_mode = 0
 offset_left = 168.84
-offset_top = 908.84
+offset_top = 906.84
 offset_right = 304.84
-offset_bottom = 931.84
+offset_bottom = 929.84
 text = "right click for skill"
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
