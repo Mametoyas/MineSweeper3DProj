@@ -21,8 +21,8 @@ var spawner: Node = null  # สำหรับคืนกลับ Pool
 
 # ---------- Knockback ---------- #
 var knockback_velocity: Vector3 = Vector3.ZERO
-var knockback_strength: float = 6.0
-var knockback_friction: float = 10.0
+var knockback_strength: float = 3.0
+var knockback_friction: float = 5.0
 
 
 # ------------------------------------------------------
