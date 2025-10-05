@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdsbfyggt2tnm"
-path.s3tc="res://.godot/imported/Elm tree_ElmTree_BaseColor.png-1d3d4ae04568529febfe4c5d44a9a989.s3tc.ctex"
+uid="uid://ded2j50vg5pp5"
+path.s3tc="res://.godot/imported/Bush_Leaf_Texture.png-f83b6585a7a2c16fcb3f559e604305a5.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "d69de2d5e49fc1430f3ec497ea02dab8"
+}
 
 [deps]
 
-source_file="res://map asset/Elm tree_ElmTree_BaseColor.png"
-dest_files=["res://.godot/imported/Elm tree_ElmTree_BaseColor.png-1d3d4ae04568529febfe4c5d44a9a989.s3tc.ctex"]
+source_file="res://map asset/Bush_Leaf_Texture.png"
+dest_files=["res://.godot/imported/Bush_Leaf_Texture.png-f83b6585a7a2c16fcb3f559e604305a5.s3tc.ctex"]
 
 [params]
 

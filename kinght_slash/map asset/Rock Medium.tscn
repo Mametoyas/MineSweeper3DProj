@@ -1,10 +1,9 @@
-[gd_scene load_steps=5 format=4 uid="uid://bf7hd4tepba6n"]
+[gd_scene load_steps=6 format=4 uid="uid://bf7hd4tepba6n"]
 
-[ext_resource type="Texture2D" uid="uid://b3dbcxfn7jqie" path="res://Rock Medium_Rocks_Diffuse.png" id="1_trk7e"]
+[ext_resource type="Texture2D" uid="uid://denhg34o2p6ls" path="res://map asset/Rock Medium_Rocks_Diffuse.png" id="1_lxghc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c5wcd"]
 resource_name = "Rocks"
-albedo_texture = ExtResource("1_trk7e")
 metallic = 0.4
 metadata/extras = {
 "fromFBX": {
@@ -47,11 +46,15 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_31yox")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cj5g2"]
+albedo_texture = ExtResource("1_lxghc")
+
 [node name="Root Scene" type="Node3D"]
 
 [node name="RootNode" type="Node3D" parent="."]
 
 [node name="Rock_Medium_1" type="MeshInstance3D" parent="RootNode"]
-transform = Transform3D(1, 0, 0, 0, 1, 1.94707e-07, 0, -1.94707e-07, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 1.94707e-07, 0, -1.94707e-07, 1, 0.00859487, 0.0208336, -0.0176649)
 mesh = SubResource("ArrayMesh_xghm1")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_cj5g2")

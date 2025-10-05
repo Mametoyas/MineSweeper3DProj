@@ -1,10 +1,9 @@
-[gd_scene load_steps=5 format=4 uid="uid://b2y0rq551pryl"]
+[gd_scene load_steps=6 format=4 uid="uid://b2y0rq551pryl"]
 
-[ext_resource type="Texture2D" uid="uid://d1nsgyswfyhq3" path="res://Elm tree_ElmTree_BaseColor.png" id="1_w1y1p"]
+[ext_resource type="Texture2D" uid="uid://cdsbfyggt2tnm" path="res://map asset/Elm tree_ElmTree_BaseColor.png" id="1_okq6u"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mtb24"]
 resource_name = "ElmTree_Mat"
-albedo_texture = ExtResource("1_w1y1p")
 emission_enabled = true
 texture_filter = 2
 
@@ -42,8 +41,12 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_bgfpq")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dtmyn"]
+albedo_texture = ExtResource("1_okq6u")
+
 [node name="Elm tree" type="Node3D"]
 
 [node name="ElmTree_Mesh" type="MeshInstance3D" parent="."]
 mesh = SubResource("ArrayMesh_na4p0")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_dtmyn")

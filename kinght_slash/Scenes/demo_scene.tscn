@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://po63m4srixl4"]
+[gd_scene load_steps=23 format=3 uid="uid://po63m4srixl4"]
 
 [ext_resource type="Script" uid="uid://buxsk3bw1g2r0" path="res://Scenes/demo_scene.gd" id="1_foia1"]
 [ext_resource type="PackedScene" uid="uid://m6b3akjblgoy" path="res://kinght/Knight.tscn" id="1_jpanv"]
@@ -6,8 +6,13 @@
 [ext_resource type="Script" uid="uid://po8axqax4if2" path="res://Scenes/control.gd" id="5_jpanv"]
 [ext_resource type="PackedScene" uid="uid://m3v7chge8bfs" path="res://map asset/Castle.tscn" id="5_r4wj5"]
 [ext_resource type="Script" uid="uid://en2h3dvj6kx3" path="res://Scripts/GameManager.gd" id="6_8fvkd"]
+[ext_resource type="PackedScene" uid="uid://b2y0rq551pryl" path="res://map asset/Elm tree.tscn" id="6_r4p77"]
+[ext_resource type="PackedScene" uid="uid://b46nqn1jxqyer" path="res://map asset/Valley Terrain.tscn" id="7_3tqca"]
 [ext_resource type="PackedScene" uid="uid://b4ioih73fhms5" path="res://enemy/Skeleton_Minion.tscn" id="7_foia1"]
+[ext_resource type="Texture2D" uid="uid://c80xd4akunwg" path="res://map asset/nightsky-16967_1280.webp" id="7_okl2h"]
 [ext_resource type="Texture2D" uid="uid://bosqvhnrjgcmc" path="res://ui/skill_tornado.png" id="7_r4wj5"]
+[ext_resource type="PackedScene" uid="uid://qwimcnriw662" path="res://map asset/Bush.glb" id="8_8ep1j"]
+[ext_resource type="PackedScene" uid="uid://bf7hd4tepba6n" path="res://map asset/Rock Medium.tscn" id="8_sx1u2"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_r4wj5"]
 
@@ -18,8 +23,21 @@ next_pass = SubResource("CanvasItemMaterial_r4p77")
 diffuse_mode = 1
 albedo_color = Color(4.21144e-07, 0.385176, 0.0847318, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_3tqca"]
+size = Vector3(1, 3.9693, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sx1u2"]
+size = Vector3(26.333, 1, 0.0492554)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ad2i4"]
+panorama = ExtResource("7_okl2h")
+
+[sub_resource type="Sky" id="Sky_3tqca"]
+sky_material = SubResource("PanoramaSkyMaterial_ad2i4")
+
 [sub_resource type="Environment" id="Environment_g4ka7"]
-background_mode = 1
+background_mode = 2
+sky = SubResource("Sky_3tqca")
 ambient_light_source = 2
 ambient_light_color = Color(0.662745, 0.694118, 0.772549, 1)
 ambient_light_energy = 1.15
@@ -58,18 +76,141 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.38997, 0)
 [node name="Platforms" type="Node3D" parent="."]
 
 [node name="PlatformRed" parent="Platforms" instance=ExtResource("2_4lh3q")]
-transform = Transform3D(34.7484, 0, 0, 0, 0.39312, 0, 0, 0, 40.0539, 0.0649705, 3, 0.0767078)
+transform = Transform3D(36.588, 0, 0, 0, 0.393, 0, 0, 0, 41.244, 0.0649705, 3, 0.0767078)
 visible = false
 
 [node name="map" type="Node3D" parent="Platforms"]
 
-[node name="Root Scene" parent="Platforms" instance=ExtResource("5_r4wj5")]
-transform = Transform3D(7.66, 0, 0, 0, 7.66, 0, 0, 0, 7.66, -12.0589, 3.40518, -22.3825)
+[node name="castle" parent="Platforms" instance=ExtResource("5_r4wj5")]
+transform = Transform3D(26.15, 0, 0, 0, 26.15, 0, 0, 0, 26.15, -11.7883, 1.75616, -43.8643)
 
 [node name="StaticBody3D" type="MeshInstance3D" parent="Platforms"]
-transform = Transform3D(79.725, 0, 0, 0, 0.39, 0, 0, 0, 85.07, 0, 3.27434, 0)
+transform = Transform3D(144.445, 0, 0, 0, 0.39, 0, 0, 0, 213.365, 0, 3.27434, 0)
 mesh = SubResource("BoxMesh_r4wj5")
 surface_material_override/0 = SubResource("StandardMaterial3D_okl2h")
+
+[node name="Tree" type="Node3D" parent="Platforms"]
+
+[node name="Elm tree" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.1115, 3.39312, -29.6894)
+
+[node name="Elm tree2" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.6743, 3.39312, -20.4833)
+
+[node name="Elm tree3" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.7537, 3.39312, -12.057)
+
+[node name="Elm tree4" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.7615, 3.39312, 0.412476)
+
+[node name="Elm tree5" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.4747, 1.53678, 11.7086)
+
+[node name="Elm tree6" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.21, 3.39312, 21.3301)
+
+[node name="Elm tree7" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(-1.14909, 0, -0.11672, 0, 1.155, 0, 0.11672, 0, -1.14909, -25.3005, 3.08721, 30.8072)
+
+[node name="Elm tree8" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.02678, 3.39312, 34.5522)
+
+[node name="Elm tree9" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.23726, 3.39312, 34.9132)
+
+[node name="Elm tree10" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.438, 3.39312, 34.717)
+
+[node name="Elm tree11" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.649, 3.39312, 30.4898)
+
+[node name="Elm tree12" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.1617, 3.39312, 30.8397)
+
+[node name="Elm tree13" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.3762, 3.39312, 19.7537)
+
+[node name="Elm tree14" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5412, 3.39312, 12.5229)
+
+[node name="Elm tree15" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.9127, 3.39311, 1.56568)
+
+[node name="Elm tree16" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.9635, 3.39313, -10.4888)
+
+[node name="Elm tree17" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.2942, 3.39313, -18.5521)
+
+[node name="Elm tree18" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.158, 3.39313, -27.6318)
+
+[node name="Elm tree19" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.8467, 3.39312, -35.2575)
+
+[node name="Elm tree20" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7295, 3.39312, -36.8174)
+
+[node name="Elm tree21" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.8997, 3.39312, -35.1943)
+
+[node name="Elm tree22" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.9281, 3.68132, -39.8858)
+
+[node name="Elm tree23" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.1537, 2.54339, -26.2987)
+
+[node name="Valley Terrain" parent="Platforms/Tree" instance=ExtResource("7_3tqca")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.685, 34.017)
+
+[node name="Valley Terrain" parent="Platforms/Tree/Valley Terrain" instance=ExtResource("7_3tqca")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -9.25139e-06, -0.685, 139.841)
+
+[node name="Root Scene" parent="Platforms/Tree" instance=ExtResource("8_8ep1j")]
+transform = Transform3D(2.06, 0, 0, 0, 2.06, 0, 0, 0, 2.06, 27.6242, 3.68162, 9.69081)
+
+[node name="Rock" type="Node3D" parent="Platforms"]
+
+[node name="Root Scene" parent="Platforms/Rock" instance=ExtResource("8_sx1u2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.0417, 3.25536, 7)
+
+[node name="Root Scene2" parent="Platforms/Rock" instance=ExtResource("8_sx1u2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.0305, 3.41649, -17.4712)
+
+[node name="Root Scene3" parent="Platforms/Rock" instance=ExtResource("8_sx1u2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7706, 3.6433, 34.6505)
+
+[node name="Root Scene4" parent="Platforms/Rock" instance=ExtResource("8_sx1u2")]
+transform = Transform3D(3.52, 0, 0, 0, 3.52, 0, 0, 0, 3.52, -3.38221, 3.55424, -45.6503)
+
+[node name="wall" type="StaticBody3D" parent="Platforms"]
+transform = Transform3D(0.145, 0, 0, 0, 1, 0, 0, 0, 4.415, 35.1716, -24.012, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/wall"]
+transform = Transform3D(21.54, 0, 0, 0, 21.54, 0, 0, 0, 21.54, 0, 26.9425, 0)
+shape = SubResource("BoxShape3D_3tqca")
+debug_color = Color(0.988651, 0, 0.29957, 0.42)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Platforms/wall"]
+transform = Transform3D(24.82, 0, 0, 0, 24.82, 0, 0, 0, 24.82, -496.833, 26.9425, 0)
+shape = SubResource("BoxShape3D_3tqca")
+debug_color = Color(0.988651, 0, 0.29957, 0.42)
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Platforms/wall"]
+transform = Transform3D(29.775, 0, 0, 0, 29.775, 0, 0, 0, 29.775, -217.559, 35.3277, 9.60058)
+shape = SubResource("BoxShape3D_sx1u2")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Platforms/wall"]
+transform = Transform3D(29.775, 0, 0, 0, 29.775, 0, 0, 0, 29.775, -217.559, 35.3277, -9.56759)
+shape = SubResource("BoxShape3D_sx1u2")
+
+[node name="bush" type="Node3D" parent="Platforms"]
+
+[node name="Root Scene" parent="Platforms/bush" instance=ExtResource("8_8ep1j")]
+transform = Transform3D(2.92, 0, 0, 0, 2.92, 0, 0, 0, 2.92, 1.69112, 3.68162, -39.5116)
+
+[node name="Root Scene2" parent="Platforms/bush" instance=ExtResource("8_8ep1j")]
+transform = Transform3D(2.705, 0, 0, 0, 2.705, 0, 0, 0, 2.705, -27.292, 3.68162, 26.2195)
 
 [node name="Environment" type="Node3D" parent="."]
 
@@ -77,7 +218,9 @@ surface_material_override/0 = SubResource("StandardMaterial3D_okl2h")
 environment = SubResource("Environment_g4ka7")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(-0.898603, 0.438763, 2.98254e-08, 0.146657, 0.300359, 0.942484, 0.413527, 0.846919, -0.334251, 9.04457, 6.63937, -28.4749)
+transform = Transform3D(-0.898603, 0.438763, -1.20086e-07, 0.437394, 0.895799, -0.078929, -0.0346311, -0.0709264, -0.99688, 42.0446, 91.6394, -28.4749)
+light_color = Color(1, 0.945098, 0.878431, 1)
+light_energy = 0.472
 shadow_enabled = true
 
 [node name="Extras" type="Node3D" parent="."]
