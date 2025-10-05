@@ -1,10 +1,9 @@
-[gd_scene load_steps=5 format=4 uid="uid://m3v7chge8bfs"]
+[gd_scene load_steps=6 format=4 uid="uid://m3v7chge8bfs"]
 
-[ext_resource type="Texture2D" uid="uid://cvnrcmn112djl" path="res://Castle_Diffuse_palette_2.jpg" id="1_aqa6i"]
+[ext_resource type="Texture2D" uid="uid://dcyoiy3j35aet" path="res://map asset/Castle_Diffuse_palette_2.jpg" id="1_ofq5s"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jjmmq"]
 resource_name = "Diffuse_color"
-albedo_texture = ExtResource("1_aqa6i")
 metallic = 0.4
 roughness = 0.272166
 metadata/extras = {
@@ -48,6 +47,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_b6db2")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0orxn"]
+albedo_texture = ExtResource("1_ofq5s")
+
 [node name="Root Scene" type="Node3D"]
 
 [node name="RootNode" type="Node3D" parent="."]
@@ -56,3 +58,4 @@ shadow_mesh = SubResource("ArrayMesh_b6db2")
 transform = Transform3D(100, 0, 0, 0, 100, -4.37114e-06, 0, 4.37114e-06, 100, 0, 0, 0)
 mesh = SubResource("ArrayMesh_ilmvk")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_0orxn")

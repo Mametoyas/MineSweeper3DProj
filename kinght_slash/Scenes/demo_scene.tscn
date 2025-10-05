@@ -1,12 +1,22 @@
-[gd_scene load_steps=10 format=3 uid="uid://po63m4srixl4"]
+[gd_scene load_steps=14 format=3 uid="uid://po63m4srixl4"]
 
 [ext_resource type="Script" uid="uid://buxsk3bw1g2r0" path="res://Scenes/demo_scene.gd" id="1_foia1"]
 [ext_resource type="PackedScene" uid="uid://m6b3akjblgoy" path="res://kinght/Knight.tscn" id="1_jpanv"]
 [ext_resource type="PackedScene" uid="uid://0t0qb3qjq6my" path="res://Scenes/PlatformRed.tscn" id="2_4lh3q"]
 [ext_resource type="Script" uid="uid://po8axqax4if2" path="res://Scenes/control.gd" id="5_jpanv"]
+[ext_resource type="PackedScene" uid="uid://m3v7chge8bfs" path="res://map asset/Castle.tscn" id="5_r4wj5"]
 [ext_resource type="Script" uid="uid://en2h3dvj6kx3" path="res://Scripts/GameManager.gd" id="6_8fvkd"]
 [ext_resource type="PackedScene" uid="uid://b4ioih73fhms5" path="res://enemy/Skeleton_Minion.tscn" id="7_foia1"]
 [ext_resource type="Texture2D" uid="uid://bosqvhnrjgcmc" path="res://ui/skill_tornado.png" id="7_r4wj5"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_r4wj5"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r4p77"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_okl2h"]
+next_pass = SubResource("CanvasItemMaterial_r4p77")
+diffuse_mode = 1
+albedo_color = Color(4.21144e-07, 0.385176, 0.0847318, 1)
 
 [sub_resource type="Environment" id="Environment_g4ka7"]
 background_mode = 1
@@ -49,6 +59,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.38997, 0)
 
 [node name="PlatformRed" parent="Platforms" instance=ExtResource("2_4lh3q")]
 transform = Transform3D(34.7484, 0, 0, 0, 0.39312, 0, 0, 0, 40.0539, 0.0649705, 3, 0.0767078)
+visible = false
+
+[node name="map" type="Node3D" parent="Platforms"]
+
+[node name="Root Scene" parent="Platforms" instance=ExtResource("5_r4wj5")]
+transform = Transform3D(7.66, 0, 0, 0, 7.66, 0, 0, 0, 7.66, -12.0589, 3.40518, -22.3825)
+
+[node name="StaticBody3D" type="MeshInstance3D" parent="Platforms"]
+transform = Transform3D(79.725, 0, 0, 0, 0.39, 0, 0, 0, 85.07, 0, 3.27434, 0)
+mesh = SubResource("BoxMesh_r4wj5")
+surface_material_override/0 = SubResource("StandardMaterial3D_okl2h")
 
 [node name="Environment" type="Node3D" parent="."]
 
