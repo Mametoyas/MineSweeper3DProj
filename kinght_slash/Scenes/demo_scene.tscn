@@ -1,8 +1,10 @@
-[gd_scene load_steps=23 format=3 uid="uid://po63m4srixl4"]
+[gd_scene load_steps=25 format=3 uid="uid://po63m4srixl4"]
 
 [ext_resource type="Script" uid="uid://buxsk3bw1g2r0" path="res://Scenes/demo_scene.gd" id="1_foia1"]
 [ext_resource type="PackedScene" uid="uid://m6b3akjblgoy" path="res://kinght/Knight.tscn" id="1_jpanv"]
 [ext_resource type="PackedScene" uid="uid://0t0qb3qjq6my" path="res://Scenes/PlatformRed.tscn" id="2_4lh3q"]
+[ext_resource type="PackedScene" uid="uid://dkgqm5udaoyau" path="res://enemy/Skeleton_Rogue.tscn" id="2_sx1u2"]
+[ext_resource type="PackedScene" uid="uid://dlwt4csvr3f8h" path="res://enemy/Skeleton_Warrior.tscn" id="4_tse6v"]
 [ext_resource type="Script" uid="uid://po8axqax4if2" path="res://Scenes/control.gd" id="5_jpanv"]
 [ext_resource type="PackedScene" uid="uid://m3v7chge8bfs" path="res://map asset/Castle.tscn" id="5_r4wj5"]
 [ext_resource type="Script" uid="uid://en2h3dvj6kx3" path="res://Scripts/GameManager.gd" id="6_8fvkd"]
@@ -61,14 +63,14 @@ adjustment_saturation = 1.09
 
 [sub_resource type="Curve3D" id="Curve3D_foia1"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -22.0485, 0, 36.4004, 0, 0, 0, 0, 0, 0, -26.6126, 0, 31.0064, 0, 0, 0, 0, 0, 0, -29.932, 0, 27.5487, 0, 0, 0, 0, 0, 0, -33.2514, 0, 16.8989, 0, 0, 0, 0, 0, 0, -32.6982, 0, 9.43025, 0, 0, 0, 0, 0, 0, -33.5281, 0, -0.66626, 0, 0, 0, 0, 0, 0, -32.9748, 0, -8.96477, 0, 0, 0, 0, 0, 0, -32.2833, 0, -20.5827, 0, 0, 0, 0, 0, 0, -30.0703, 0, -27.6364, 0, 0, 0, 0, 0, 0, -26.4743, 0, -31.7857, 0, 0, 0, 0, 0, 0, -19.144, 0, -36.4882, 0, 0, 0, 0, 0, 0, -6.97284, 0, -37.7329, 0, 0, 0, 0, 0, 0, -0.334029, 0, -37.8712, 0, 0, 0, 0, 0, 0, 9.20925, 0, -37.4563, 0, 0, 0, 0, 0, 0, 17.5078, 0, -37.5946, 0, 0, 0, 0, 0, 0, 22.6252, 0, -34.2752, 0, 0, 0, 0, 0, 0, 28.4341, 0, -28.1896, 0, 0, 0, 0, 0, 0, 30.9237, 0, -18.6464, 0, 0, 0, 0, 0, 0, 32.4451, 0, -4.26228, 0, 0, 0, 0, 0, 0, 31.8918, 0, 2.23821, 0, 0, 0, 0, 0, 0, 31.3386, 0, 10.3984, 0, 0, 0, 0, 0, 0, 31.4769, 0, 15.5158, 0, 0, 0, 0, 0, 0, 28.7107, 0, 25.0591, 0, 0, 0, 0, 0, 0, 24.1466, 0, 31.6979, 0, 0, 0, 0, 0, 0, 19.3058, 0, 35.1556, 0, 0, 0, 0, 0, 0, 10.5923, 0, 36.4004, 0, 0, 0, 0, 0, 0, 1.74059, 0, 36.8153, 0, 0, 0, 0, 0, 0, -8.21761, 0, 37.5069, 0, 0, 0, 0, 0, 0, -16.6544, 0, 37.3686),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -22.0204, 0.368993, 36.3814, 0, 0, 0, 0, 0, 0, -26.62, 0.11166, 30.9713, 0, 0, 0, 0, 0, 0, -29.907, 0.237117, 27.5426, 0, 0, 0, 0, 0, 0, -33.2478, 0.181093, 16.8958, 0, 0, 0, 0, 0, 0, -32.6625, 0.0213628, 9.4631, 0, 0, 0, 0, 0, 0, -33.5281, 0.0566497, -0.66626, 0, 0, 0, 0, 0, 0, -32.9667, 0.147037, -8.96693, 0, 0, 0, 0, 0, 0, -32.2796, 0.0666471, -20.5837, 0, 0, 0, 0, 0, 0, -27.1636, 0.0212483, -30.9495, 0, 0, 0, 0, 0, 0, -19.1579, 0.059268, -36.5098, 0, 0, 0, 0, 0, 0, -6.94222, 0.113406, -37.7531, 0, 0, 0, 0, 0, 0, -0.334029, 0, -37.8712, 0, 0, 0, 0, 0, 0, 9.25185, 0.168767, -37.47, 0, 0, 0, 0, 0, 0, 17.5078, 0, -37.5946, 0, 0, 0, 0, 0, 0, 22.6468, 0.168326, -34.313, 0, 0, 0, 0, 0, 0, 28.4308, 0.167466, -28.188, 0, 0, 0, 0, 0, 0, 30.939, 0.1949, -18.6448, 0, 0, 0, 0, 0, 0, 32.4451, 0, -4.26228, 0, 0, 0, 0, 0, 0, 31.8918, 0, 2.23821, 0, 0, 0, 0, 0, 0, 31.5405, 0.355902, 10.4656, 0, 0, 0, 0, 0, 0, 31.5573, 0.147974, 15.5516, 0, 0, 0, 0, 0, 0, 28.7107, 0, 25.0591, 0, 0, 0, 0, 0, 0, 24.1827, 0.369551, 31.8194, 0, 0, 0, 0, 0, 0, 19.3058, 0, 35.1556, 0, 0, 0, 0, 0, 0, 10.6322, 0.465052, 36.5046, 0, 0, 0, 0, 0, 0, 1.68071, 0.532822, 36.8994, 0, 0, 0, 0, 0, 0, -8.21761, 0, 37.5069, 0, 0, 0, 0, 0, 0, -16.7269, 0.20154, 37.3631),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 }
-point_count = 29
+point_count = 28
 
 [node name="DemoScene" type="Node3D"]
 script = ExtResource("1_foia1")
-enemy_scene = ExtResource("7_foia1")
+enemy_scenes = Array[PackedScene]([ExtResource("7_foia1"), ExtResource("2_sx1u2"), ExtResource("4_tse6v")])
 
 [node name="Player" parent="." instance=ExtResource("1_jpanv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.38997, 0)
@@ -218,9 +220,9 @@ transform = Transform3D(2.705, 0, 0, 0, 2.705, 0, 0, 0, 2.705, -27.292, 3.68162,
 environment = SubResource("Environment_g4ka7")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(-0.898603, 0.438763, -1.20086e-07, 0.437394, 0.895799, -0.078929, -0.0346311, -0.0709264, -0.99688, 42.0446, 91.6394, -28.4749)
+transform = Transform3D(0.223057, -0.706065, -0.6721, -0.391306, -0.696337, 0.60166, -0.892819, 0.128792, -0.43161, 14.931, 91.3764, -17.5905)
 light_color = Color(1, 0.945098, 0.878431, 1)
-light_energy = 0.472
+light_energy = 0.1
 shadow_enabled = true
 
 [node name="Extras" type="Node3D" parent="."]
@@ -309,31 +311,30 @@ text = "Lv. 1"
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
-scale = Vector2(32.2004, 18.2039)
+scale = Vector2(49.532, 30.0871)
 mouse_filter = 2
 color = Color(1, 0, 0, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="userinterface/Control"]
-position = Vector2(70, 658)
+position = Vector2(59.84, 838.84)
 scale = Vector2(0.07, 0.07)
 texture = ExtResource("7_r4wj5")
 
 [node name="SkillCooldownLabel" type="Label" parent="userinterface/Control"]
 layout_mode = 0
-offset_left = 110.0
-offset_top = 644.0
-offset_right = 198.0
-offset_bottom = 667.0
+offset_left = 99.84
+offset_top = 826.84
+offset_right = 187.84
+offset_bottom = 849.84
 text = "Skill Ready!"
 
 [node name="UpgradePanel" type="Control" parent="userinterface/Control"]
-visible = false
 anchors_preset = 0
-offset_left = 156.0
-offset_top = 255.0
-offset_right = 196.0
-offset_bottom = 295.0
-scale = Vector2(4, 4)
+offset_left = 1247.0
+offset_top = 456.0
+offset_right = 1287.0
+offset_bottom = 496.0
+scale = Vector2(2, 2)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="userinterface/Control/UpgradePanel"]
 layout_mode = 0
@@ -355,11 +356,59 @@ layout_mode = 2
 
 [node name="ComboLabel" type="Label" parent="userinterface/Control"]
 layout_mode = 0
-offset_left = 1082.0
-offset_top = 39.0
-offset_right = 1122.0
-offset_bottom = 62.0
-scale = Vector2(3, 3)
+offset_left = 1505.0
+offset_top = 29.0
+offset_right = 1545.0
+offset_bottom = 52.0
+scale = Vector2(5, 5)
+
+[node name="BattleText_Crit" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 790.0
+offset_top = 660.0
+offset_right = 830.0
+offset_bottom = 683.0
+
+[node name="BattleText_Berserk" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 790.0
+offset_top = 748.0
+offset_right = 830.0
+offset_bottom = 771.0
+
+[node name="walk" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 28.84
+offset_top = 878.84
+offset_right = 148.84
+offset_bottom = 927.84
+text = "w,a,s,d for walk
+"
+
+[node name="attack" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 166.84
+offset_top = 878.84
+offset_right = 309.84
+offset_bottom = 927.84
+text = "left click for attack
+"
+
+[node name="dash" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 26.84
+offset_top = 908.84
+offset_right = 129.84
+offset_bottom = 931.84
+text = "shift for dash"
+
+[node name="skill" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 168.84
+offset_top = 908.84
+offset_right = 304.84
+offset_bottom = 931.84
+text = "right click for skill"
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 wait_time = 3.0
@@ -370,4 +419,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.47917, 0)
 curve = SubResource("Curve3D_foia1")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.76339, 0, 0.645938, 0, 1, 0, -0.645938, 0, 0.76339, -22.0485, 0, 36.4004)
+transform = Transform3D(0.761868, -0.0234574, 0.647308, -1.86265e-09, 0.999344, 0.0362147, -0.647733, -0.0275908, 0.761368, -22.0204, 0.368993, 36.3814)

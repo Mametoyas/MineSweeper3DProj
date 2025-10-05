@@ -23,6 +23,9 @@ var current_hp := 100
 
 @onready var combo_label = $ComboLabel
 
+@onready var crit_text = $BattleText_Crit
+@onready var berserk_text = $BattleText_Berserk
+
 var current_options = []
 var player_ref = null
 
@@ -194,7 +197,7 @@ func update_level(lv: int):
 # ---------- FLASH DAMAGE ---------- #
 func flash_screen_red():
 	var tween = get_tree().create_tween()
-	damage_flash.color = Color(1, 0, 0, 0.5)
+	damage_flash.color = Color(1, 0, 0, 0.2)
 	tween.tween_property(damage_flash, "color", Color(1, 0, 0, 0), 0.4)
 
 
@@ -217,9 +220,9 @@ func show_upgrade_choices(player):
 	current_options.shuffle()
 	current_options = current_options.slice(0, 3)
 
-	btn1.text = current_options[0]["name"]
-	btn2.text = current_options[1]["name"]
-	btn3.text = current_options[2]["name"]
+	btn1.text = current_options[0]["name"] + "\n[Press 1]"
+	btn2.text = current_options[1]["name"] + "\n[Press 2]"
+	btn3.text = current_options[2]["name"] + "\n[Press 3]"
 
 	# ✅ ตัดการเชื่อม signal เก่าก่อนต่อใหม่
 	for connection in btn1.pressed.get_connections():
@@ -232,7 +235,7 @@ func show_upgrade_choices(player):
 	btn1.pressed.connect(func(): _on_choice_pressed(0))
 	btn2.pressed.connect(func(): _on_choice_pressed(1))
 	btn3.pressed.connect(func(): _on_choice_pressed(2))
-
+	
 
 func _on_choice_pressed(index):
 	if not player_ref:
@@ -267,3 +270,32 @@ func show_combo(count: int, tier: String):
 
 func hide_combo():
 	combo_label.visible = false
+	
+# 🔥 ข้อความ Critical
+func show_critical():
+	crit_text.text = "CRITICAL!"
+	crit_text.modulate = Color(1, 0.3, 0.3)
+	crit_text.visible = true
+	crit_text.scale = Vector2(1.5, 1.5)
+
+	var tween = get_tree().create_tween()
+	tween.tween_property(crit_text, "scale", Vector2(1, 1), 0.15)
+	tween.tween_property(crit_text, "modulate:a", 0.0, 0.6)
+	await tween.finished
+	crit_text.visible = false
+	crit_text.modulate.a = 1.0
+
+
+# 💢 ข้อความ Berserk
+func show_berserk():
+	berserk_text.text = "BERSERK MODE!"
+	berserk_text.modulate = Color(1, 0, 0)
+	berserk_text.visible = true
+	berserk_text.scale = Vector2(2, 2)
+
+	var tween = get_tree().create_tween()
+	tween.tween_property(berserk_text, "scale", Vector2(1, 1), 0.25)
+	tween.tween_property(berserk_text, "modulate:a", 0.0, 1.2)
+	await tween.finished
+	berserk_text.visible = false
+	berserk_text.modulate.a = 1.0

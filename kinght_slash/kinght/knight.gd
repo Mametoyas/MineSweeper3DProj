@@ -58,6 +58,15 @@ var combo_tier: String = ""
 # ---------- CONSTANTS ---------- #
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity") * 2
 
+# ---------- DASH SYSTEM ---------- #
+@export var dash_speed: float = 20.0
+@export var dash_duration: float = 0.2
+@export var dash_cooldown: float = 2.0
+
+var is_dashing: bool = false
+var can_dash: bool = true
+
+
 
 # ---------- READY ---------- #
 func _ready():
@@ -67,6 +76,42 @@ func _ready():
 	combo_timer.timeout.connect(_on_combo_timeout)
 	add_child(combo_timer)
 
+func perform_dash():
+	if not can_dash or is_attacking or is_dead:
+		return
+	if not is_on_floor():
+		return
+
+	is_dashing = true
+	can_dash = false
+	var dash_dir = Vector3(velocity.x, 0, velocity.z).normalized()
+
+	# ถ้าไม่ได้เคลื่อนที่ ให้ dash ไปข้างหน้าตามทิศตัวละคร
+	if dash_dir == Vector3.ZERO:
+		dash_dir = -transform.basis.z
+
+	## ✅ เล่นแอนิเมชัน dash ถ้ามี
+	#if animation.has_animation("Dodge_Forward"):
+	animation.play("Dodge_Forward")
+	
+	# ✅ ให้ player มี invincible ช่วงสั้น ๆ (iframe)
+	set_meta("invincible", true)
+
+	var dash_time := 0.0
+	while dash_time < dash_duration:
+		dash_time += get_process_delta_time()
+		velocity = dash_dir * dash_speed
+		move_and_slide()
+		await get_tree().process_frame
+
+	# ✅ รีเซ็ตหลัง dash จบ
+	is_dashing = false
+	set_meta("invincible", false)
+	velocity = Vector3.ZERO
+
+	# ✅ Cooldown
+	await get_tree().create_timer(dash_cooldown).timeout
+	can_dash = true
 
 # ---------- PROCESS ---------- #
 func _process(delta):
@@ -83,6 +128,10 @@ func _process(delta):
 		model.rotation.y = lerp_angle(model.rotation.y, look_direction.angle(), delta * 12)
 
 	is_grounded = is_on_floor()
+	
+	# Dash (Shift)
+	if Input.is_action_just_pressed("dash"):
+		perform_dash()
 
 	if Input.is_action_just_pressed("attack"):
 		if can_attack and not is_attacking:
@@ -147,11 +196,15 @@ func _on_sword_hitbox_body_entered(body):
 		# 💢 Berserk
 		if berserk_active and hp < max_hp * 0.3:
 			dmg *= 1.5
+			if ui:
+				ui.show_berserk()
 
 		# 🔥 Critical
 		var is_crit = randf() < crit_chance
 		if is_crit:
 			dmg *= 2.0
+			if ui:
+				ui.show_critical()
 			print("🔥 Critical Hit!")
 			if crit_heal > 0.0:
 				var heal = int(dmg * crit_heal)

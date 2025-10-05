@@ -1,12 +1,12 @@
 extends Node3D
 
-@export var enemy_scene: PackedScene
-@export var pool_size: int = 50              # จำนวนศัตรูเริ่มต้นใน Pool
-@export var spawn_interval: float = 3.0      # ระยะห่างการ spawn เริ่มต้น
-@export var min_interval: float = 0.5        # เร็วสุดที่อนุญาต
-@export var spawn_accel: float = 0.95        # ยิ่งนาน spawn ยิ่งเร็วขึ้น
-@export var spawn_distance: float = 50.0     # ระยะ spawn โดยประมาณจาก Player
-@export var max_active_enemies: int = 60     # จำกัดจำนวนศัตรูบนฉาก
+# --- 🔧 CONFIG --- #
+@export var enemy_scenes: Array[PackedScene] = []
+@export var pool_size: int = 40
+@export var spawn_interval: float = 3.0
+@export var min_interval: float = 0.5
+@export var spawn_accel: float = 0.95
+@export var max_active_enemies: int = 40
 
 @onready var path = $Path3D
 @onready var path_follow = $Path3D/PathFollow3D
@@ -15,29 +15,27 @@ extends Node3D
 
 var enemy_pool: Array = []
 var active_enemies: int = 0
-var wave_count: int = 1   # นับรอบ wave
+var wave_count: int = 1
 
 
 # ---------------------------
 # 🧠 เตรียม Pool ตั้งแต่เริ่มเกม
 # ---------------------------
 func _ready():
-	if not enemy_scene:
-		push_warning("⚠️ enemy_scene ยังไม่ได้ตั้งค่าใน Inspector")
+	if enemy_scenes.is_empty():
+		push_warning("⚠️ ต้องใส่ enemy_scenes อย่างน้อย 1 scene ใน Inspector!")
 		return
 
 	print("🛠 Initializing Enemy Pool...")
 
 	for i in range(pool_size):
+		var enemy_scene = enemy_scenes.pick_random()  # ✅ สุ่มชนิดศัตรู
 		var enemy = enemy_scene.instantiate()
 		enemy.visible = false
 		enemy.set_physics_process(false)
 		enemy.set_process(false)
 		enemy.add_to_group("Enemy")
-
-		# ✅ เซ็ต spawner โดยตรง (ไม่ต้องเช็ก)
 		enemy.spawner = self
-
 		add_child(enemy)
 		enemy_pool.append(enemy)
 
@@ -53,9 +51,10 @@ func _ready():
 # 🔁 เรียกเมื่อ Timer หมดเวลา
 # ---------------------------
 func _on_spawn_timer_timeout():
-	_spawn_enemy_from_pool()
+	var enemies_to_spawn = randi_range(1, 3)  # ✅ สุ่ม 1–3 ตัว
+	for i in range(enemies_to_spawn):
+		_spawn_enemy_from_pool()
 
-	# ✅ ปรับความเร็วการ spawn แบบไดนามิก
 	if active_enemies < max_active_enemies:
 		spawn_interval = max(spawn_interval * spawn_accel, min_interval)
 	else:
@@ -71,19 +70,16 @@ func _on_spawn_timer_timeout():
 func _spawn_enemy_from_pool():
 	if not player:
 		return
-
 	if active_enemies >= max_active_enemies:
-		return  # ถ้าเต็มแล้วไม่ spawn เพิ่ม
+		return
 
+	# ✅ หา enemy ที่ว่างก่อน
 	for enemy in enemy_pool:
 		if not enemy.visible and is_instance_valid(enemy):
-			# ✅ สุ่มตำแหน่งบน Path3D รอบ Player
 			path_follow.progress_ratio = randf()
 			var pos = path_follow.global_position
-			var random_offset = Vector3(randf_range(-10, 10), 0, randf_range(-10, 10))
-			enemy.global_position = pos + random_offset
+			enemy.global_position = pos
 
-			# ✅ รีเซ็ตสถานะ Enemy ก่อนใช้งานใหม่
 			if enemy.has_method("reset_state"):
 				enemy.reset_state()
 
@@ -93,11 +89,12 @@ func _spawn_enemy_from_pool():
 			active_enemies += 1
 			return
 
-	# ✅ ถ้าไม่มีศัตรูว่าง → ขยาย Pool (จำกัดสูงสุด)
+	# ✅ ถ้าไม่มีใน pool → ขยายเพิ่มพร้อมสุ่มประเภท
 	if enemy_pool.size() < 100:
-		var new_enemy = enemy_scene.instantiate()
+		var new_enemy_scene = enemy_scenes.pick_random()
+		var new_enemy = new_enemy_scene.instantiate()
 		new_enemy.visible = true
-		new_enemy.spawner = self  # ✅ เซ็ต spawner ตรง ๆ
+		new_enemy.spawner = self
 		add_child(new_enemy)
 		enemy_pool.append(new_enemy)
 		active_enemies += 1
@@ -105,12 +102,11 @@ func _spawn_enemy_from_pool():
 
 
 # ---------------------------
-# 🔄 คืนศัตรูเข้าพูล (เรียกจาก enemy.gd)
+# 🔄 คืนศัตรูเข้าพูล
 # ---------------------------
 func return_enemy_to_pool(enemy):
 	if not is_instance_valid(enemy):
 		return
-
 	if enemy in enemy_pool:
 		enemy.visible = false
 		enemy.set_physics_process(false)

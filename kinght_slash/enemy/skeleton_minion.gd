@@ -6,7 +6,7 @@ extends CharacterBody3D
 @export var attack_damage: int = 10
 @export var attack_range: float = 1.8
 @export var attack_cooldown: float = 1.2
-@export var active_distance: float = 40.0
+@export var active_distance: float = 80.0
 
 # ---------- REFERENCES ---------- #
 @onready var anim: AnimationPlayer = $Rig/AnimationPlayer
@@ -32,6 +32,8 @@ func reset_state():
 	is_dead = false
 	can_attack = true
 	health = max_health
+	velocity = Vector3.ZERO
+	global_position.y = 3  # หรือปรับให้อยู่ระดับพื้นจริง
 	knockback_velocity = Vector3.ZERO
 	attack_area.monitoring = true
 	set_physics_process(true)
@@ -40,11 +42,14 @@ func reset_state():
 
 
 # ------------------------------------------------------
-# 🦴 ฟิสิกส์การเคลื่อนที่และต่อสู้
+# 🦴 ฟิสิกส์การเคลื่อนที่และต่อสู้ (แก้ลอย)
 # ------------------------------------------------------
 func _physics_process(delta):
 	if is_dead or not player:
 		return
+
+	# ✅ เพิ่มแรงโน้มถ่วงพื้นฐานให้ศัตรู
+	velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta
 
 	var dir = player.global_position - global_position
 	dir.y = 0
@@ -52,19 +57,24 @@ func _physics_process(delta):
 
 	# ✅ ถ้ามีแรง Knockback
 	if knockback_velocity.length() > 0.1:
-		velocity = knockback_velocity
+		# ใช้เฉพาะแกน XZ ของ knockback (ไม่ยุ่งกับ Y)
+		velocity.x = knockback_velocity.x
+		velocity.z = knockback_velocity.z
 		move_and_slide()
+		# ลดแรงเด้งลงเรื่อย ๆ
 		knockback_velocity = knockback_velocity.move_toward(Vector3.ZERO, knockback_friction * delta)
 		return
 
 	# ✅ ถ้าอยู่ไกลเกิน active_distance → Idle
 	if distance > active_distance:
 		anim.play("Idle_Combat")
+		move_and_slide()
 		return
 
 	# ✅ ถ้าอยู่ในระยะโจมตี
 	if distance <= attack_range:
-		velocity = Vector3.ZERO
+		velocity.x = 0
+		velocity.z = 0
 		move_and_slide()
 		if can_attack:
 			attack()
@@ -77,7 +87,6 @@ func _physics_process(delta):
 		velocity.x = dir.x * move_speed
 		velocity.z = dir.z * move_speed
 		move_and_slide()
-
 
 # ------------------------------------------------------
 # ⚔️ ฟังก์ชันโจมตี
@@ -104,20 +113,20 @@ func attack():
 # ------------------------------------------------------
 # 💥 ฟังก์ชันเมื่อโดนตี
 # ------------------------------------------------------
-func take_damage(amount: float, from_dir: Vector3 = Vector3.ZERO):
+func take_damage(amount, from_dir: Vector3 = Vector3.ZERO):
 	if is_dead:
 		return
-
+	
 	health -= amount
 	anim.play("Hit_B")
 
-	# ✅ Knockback
+	# ✅ กันลอยขึ้นฟ้า
 	if from_dir != Vector3.ZERO:
+		from_dir.y = 0
 		knockback_velocity = from_dir.normalized() * knockback_strength
 
 	if health <= 0:
 		die()
-
 
 # ------------------------------------------------------
 # ☠️ ฟังก์ชันตอนตาย
