@@ -11,10 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://b2y0rq551pryl" path="res://map asset/Elm tree.tscn" id="6_r4p77"]
 [ext_resource type="PackedScene" uid="uid://b46nqn1jxqyer" path="res://map asset/Valley Terrain.tscn" id="7_3tqca"]
 [ext_resource type="PackedScene" uid="uid://b4ioih73fhms5" path="res://enemy/Skeleton_Minion.tscn" id="7_foia1"]
-[ext_resource type="Texture2D" uid="uid://c80xd4akunwg" path="res://map asset/nightsky-16967_1280.webp" id="7_okl2h"]
 [ext_resource type="Texture2D" uid="uid://bosqvhnrjgcmc" path="res://ui/skill_tornado.png" id="7_r4wj5"]
 [ext_resource type="PackedScene" uid="uid://qwimcnriw662" path="res://map asset/Bush.glb" id="8_8ep1j"]
 [ext_resource type="PackedScene" uid="uid://bf7hd4tepba6n" path="res://map asset/Rock Medium.tscn" id="8_sx1u2"]
+[ext_resource type="Texture2D" uid="uid://be2ir3aaafq04" path="res://map asset/vecteezy_panorama-sky-with-cloud-on-a-sunny-day_2984147.jpg" id="12_tse6v"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_r4wj5"]
 
@@ -32,7 +32,7 @@ size = Vector3(1, 3.9693, 1)
 size = Vector3(26.333, 1, 0.0492554)
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ad2i4"]
-panorama = ExtResource("7_okl2h")
+panorama = ExtResource("12_tse6v")
 
 [sub_resource type="Sky" id="Sky_3tqca"]
 sky_material = SubResource("PanoramaSkyMaterial_ad2i4")
@@ -419,4 +419,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.47917, 0)
 curve = SubResource("Curve3D_foia1")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.761868, -0.0234574, 0.647308, -1.86265e-09, 0.999344, 0.0362147, -0.647733, -0.0275908, 0.761368, -22.0204, 0.368993, 36.3814)
+transform = Transform3D(0.761869, -0.0234574, 0.647307, -9.31323e-10, 0.999344, 0.0362147, -0.647732, -0.0275909, 0.761369, -22.0204, 0.368993, 36.3814)
