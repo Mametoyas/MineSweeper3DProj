@@ -246,7 +246,7 @@ func use_spin_skill():
 	sword_hitbox.monitoring = true
 
 	var spin_duration = 4.0 + spin_bonus_duration
-	var tick_interval = 0.3
+	var tick_interval = 0.2
 	var timer = 0.0
 	var elapsed = 0.0
 
@@ -258,7 +258,7 @@ func use_spin_skill():
 			timer = 0.0
 			for body in sword_hitbox.get_overlapping_bodies():
 				if body.is_in_group("Enemy"):
-					body.take_damage(30 * skill_power, (body.global_position - global_position).normalized())
+					body.take_damage(20 * skill_power, (body.global_position - global_position).normalized())
 					add_combo()
 					print("Spin Tick!")
 
