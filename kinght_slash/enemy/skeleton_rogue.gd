@@ -24,6 +24,7 @@ var knockback_velocity: Vector3 = Vector3.ZERO
 var knockback_strength: float = 6.0
 var knockback_friction: float = 10.0
 
+@onready var sfx_die = $Rig/sound/die
 
 # ------------------------------------------------------
 # 🧠 เริ่มต้นหรือรีเซ็ตใหม่ตอนดึงจาก Pool
@@ -132,6 +133,7 @@ func take_damage(amount, from_dir: Vector3 = Vector3.ZERO):
 # ☠️ ฟังก์ชันตอนตาย
 # ------------------------------------------------------
 func die():
+	sfx_die.play()
 	is_dead = true
 	anim.play("Death_C_Skeletons")
 	set_physics_process(false)

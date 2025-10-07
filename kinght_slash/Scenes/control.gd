@@ -299,3 +299,4 @@ func show_berserk():
 	await tween.finished
 	berserk_text.visible = false
 	berserk_text.modulate.a = 1.0
+	

@@ -67,6 +67,13 @@ var is_dashing: bool = false
 var can_dash: bool = true
 
 
+var footstep_timer := 0.0
+@export var footstep_interval := 0.4  # เวลาแต่ละก้าว
+@export var footstep_volume := 0.8    # ความดังเสียงเดิน (0–1)
+
+@onready var sfx_slash = $Rig/Sounds/Slash
+@onready var sfx_skill = $Rig/Sounds/skill
+@onready var sfx_hit = $Rig/Sounds/hit
 
 # ---------- READY ---------- #
 func _ready():
@@ -147,6 +154,7 @@ func _process(delta):
 
 # ---------- ATTACK SYSTEM ---------- #
 func perform_attack():
+	sfx_slash.play()
 	can_attack = false
 	is_attacking = true
 	attack_queued = false
@@ -231,6 +239,7 @@ func _on_sword_hitbox_body_entered(body):
 
 # ---------- SPIN SKILL ---------- #
 func use_spin_skill():
+	sfx_skill.play()
 	can_use_skill = false
 	is_attacking = true
 	animation.play("2H_Melee_Attack_Spinning")
@@ -257,6 +266,8 @@ func use_spin_skill():
 
 	sword_hitbox.monitoring = false
 	is_attacking = false
+	if sfx_skill and sfx_skill.playing:
+		sfx_skill.stop()
 
 	if ui:
 		ui.show_skill_cooldown(skill_cooldown)
@@ -269,7 +280,7 @@ func use_spin_skill():
 func take_damage(amount):
 	if is_dead:
 		return
-
+	sfx_hit.play()
 	amount *= (1.0 - damage_reduction)
 	hp = clamp(hp - amount, 0, max_hp)
 
@@ -374,13 +385,24 @@ func is_moving():
 func player_animations():
 	if is_attacking:
 		return
+
 	particle_trail.emitting = false
-	footsteps.stream_paused = true
 
 	if is_on_floor():
 		if is_moving():
 			animation.play("Running_A", 0.5)
 			particle_trail.emitting = true
-			footsteps.stream_paused = false
+
+			# ✅ เล่นเสียงเท้าแบบจังหวะคงที่ขณะเดิน
+			footstep_timer -= get_process_delta_time()
+			if footstep_timer <= 0:
+				# เช็กว่าผู้เล่นเดินเร็วพอจริง
+				if velocity.length() > 0.5:
+					footsteps.volume_db = linear_to_db(footstep_volume)
+					footsteps.play()
+					footstep_timer = footstep_interval
 		else:
 			animation.play("2H_Melee_Idle", 0.5)
+			footsteps.stop()
+	else:
+		footsteps.stop()

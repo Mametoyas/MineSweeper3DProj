@@ -1,6 +1,9 @@
 extends Control
 
+@onready var sfx_BGM = $BGM
+
 func _ready():
+	sfx_BGM.play()
 	# เชื่อมปุ่มแต่ละอันเข้ากับฟังก์ชัน
 	$StartButton.pressed.connect(_on_start_pressed)
 	$OptionsButton.pressed.connect(_on_options_pressed)
@@ -9,6 +12,7 @@ func _ready():
 
 
 func _on_start_pressed():
+	sfx_BGM.stop()
 	# โหลดฉากหลัก (เช่น Main.tscn)
 	get_tree().change_scene_to_file("res://Scenes/demo_scene.tscn")
 
@@ -20,4 +24,5 @@ func _on_tutorial_pressed():
 	# ตัวอย่าง: get_tree().change_scene_to_file("res://Scenes/tutorial.tscn")
 
 func _on_exit_pressed():
+	sfx_BGM.stop()
 	get_tree().quit()
