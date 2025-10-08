@@ -1,0 +1,211 @@
+[gd_scene load_steps=13 format=3 uid="uid://cyjjr852f67am"]
+
+[ext_resource type="PackedScene" uid="uid://spcl8gfu82im" path="res://map asset/platform1.tscn" id="1_rglb1"]
+[ext_resource type="Texture2D" uid="uid://c80xd4akunwg" path="res://map asset/nightsky-16967_1280.webp" id="2_kv8g5"]
+[ext_resource type="PackedScene" uid="uid://m3v7chge8bfs" path="res://map asset/Castle.tscn" id="3_1rd5j"]
+[ext_resource type="PackedScene" uid="uid://b2y0rq551pryl" path="res://map asset/Elm tree.tscn" id="4_mh8dv"]
+[ext_resource type="PackedScene" uid="uid://cstfb54jxax32" path="res://map asset/tower2.tscn" id="5_da0o7"]
+[ext_resource type="PackedScene" uid="uid://bf7hd4tepba6n" path="res://map asset/Rock Medium.tscn" id="6_bjmek"]
+[ext_resource type="PackedScene" uid="uid://cgk8kts1h7qrx" path="res://map asset/tower1.tscn" id="7_0omhw"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_h2yge"]
+panorama = ExtResource("2_kv8g5")
+
+[sub_resource type="Sky" id="Sky_1bvp3"]
+sky_material = SubResource("PanoramaSkyMaterial_h2yge")
+
+[sub_resource type="Environment" id="Environment_lquwl"]
+background_mode = 2
+sky = SubResource("Sky_1bvp3")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lquwl"]
+size = Vector3(0.001, 1, 2.15649)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7mycd"]
+size = Vector3(2.78461, 1.20325, 0.001)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D" parent="." instance=ExtResource("1_rglb1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.212916, 0, -0.254242)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.835539, -0.27867, 0.473517, -0.0349195, 0.833155, 0.551937, -0.548321, -0.4777, 0.686402, 21.9258, 48.0774, -6.14393)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.560666, 0.584824, 0.586204, -0.359285, -0.466011, 0.808547, 0.746035, -0.663939, -0.0511585, 0, 232.131, 0)
+light_color = Color(0.838897, 0.838897, 0.838897, 1)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_lquwl")
+
+[node name="castle" parent="." instance=ExtResource("3_1rd5j")]
+transform = Transform3D(-42.03, 0, -3.67438e-06, 0, 42.03, 0, 3.67438e-06, 0, -42.03, 41.595, 0, 70.6412)
+
+[node name="tree" type="Node3D" parent="."]
+
+[node name="Elm tree3" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.6286, 0, 41.7248)
+
+[node name="Elm tree4" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.5152, 0, -38.0947)
+
+[node name="Elm tree5" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.9809, 0, 66.3093)
+
+[node name="Elm tree6" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.5129, -2.78099, -61.2205)
+
+[node name="Elm tree7" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.8241, -0.923223, -64.063)
+
+[node name="Elm tree8" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.4974, -3.5188, -50.2781)
+
+[node name="Elm tree9" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.5054, 0, -66.1662)
+
+[node name="Elm tree10" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.0611, 0, -31.7362)
+
+[node name="Elm tree11" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.492, 0, -15.8503)
+
+[node name="Elm tree12" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.8273, 0, 6.84948)
+
+[node name="Elm tree13" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.6493, 0, 15.8747)
+
+[node name="Elm tree14" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59.3159, 0, 30.5182)
+
+[node name="Elm tree15" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.7113, 0, 61.5836)
+
+[node name="Elm tree16" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.0963, 0, 50.6443)
+
+[node name="Elm tree17" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.4362, 0, 64.5529)
+
+[node name="Elm tree18" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.2864, 0, 68.9595)
+
+[node name="Elm tree19" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.4001, 0, 62.6116)
+
+[node name="Elm tree20" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3544, 0, 61.4651)
+
+[node name="Elm tree21" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1.99, 0, 0, 0, 1.99, 0, 0, 0, 1.99, 6.08644, 0, 59.7358)
+
+[node name="Elm tree22" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.0325, 0, 61.7778)
+
+[node name="Elm tree23" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.7082, 1.90735e-06, 60.3577)
+
+[node name="Elm tree24" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.4292, 0, 57.895)
+
+[node name="Elm tree25" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.3586, 0, 31.398)
+
+[node name="Elm tree26" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 54.5351, 0, 12.5879)
+
+[node name="Elm tree27" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.5119, 0, -3.0779)
+
+[node name="Elm tree28" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.6704, 0, -15.6787)
+
+[node name="Elm tree29" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 59.4238, 0, -37.7981)
+
+[node name="Elm tree30" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 51.8362, 0, -54.6466)
+
+[node name="Elm tree31" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.91365, 0, -60.178)
+
+[node name="Elm tree32" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.45292, 0, -59.5113)
+
+[node name="Elm tree33" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.007, 0, -63.1336)
+
+[node name="Elm tree34" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1.585, 0, 0, 0, 1.585, 0, 0, 0, 1.585, 40.9696, 0, -38.7572)
+
+[node name="Elm tree35" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1.72, 0, 0, 0, 1.72, 0, 0, 0, 1.72, -35.4088, 0, 41.5197)
+
+[node name="Elm tree37" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(5.46, 0, 0, 0, 5.46, 0, 0, 0, 5.46, -65.5206, -3.4464, -6.2235)
+
+[node name="Elm tree38" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(0.132365, -2.17199, -0.744946, 0.364927, 0.756597, -2.14112, 2.267, 0.00502488, 0.388159, 44.142, -1.45827, -62.5049)
+
+[node name="Elm tree39" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0593, -9.53674e-07, -37.0401)
+
+[node name="Elm tree2" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.1367, 0, -11.6609)
+
+[node name="Elm tree" parent="tree" instance=ExtResource("4_mh8dv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.9376, -2.38419e-07, 47.7177)
+
+[node name="Tower" parent="tree" instance=ExtResource("5_da0o7")]
+transform = Transform3D(0.175877, 0, 16.5191, 0, 16.52, 0, -16.5191, 0, 0.175877, 54.3729, 11.8702, -25.9221)
+
+[node name="Rock" type="Node3D" parent="."]
+
+[node name="Root Scene2" parent="Rock" instance=ExtResource("6_bjmek")]
+transform = Transform3D(4.965, 0, 0, 0, 4.965, 0, 0, 0, 4.965, -23.5547, 0, -68.6662)
+
+[node name="Root Scene3" parent="Rock" instance=ExtResource("6_bjmek")]
+transform = Transform3D(4.905, 0, 0, 0, 4.905, 0, 0, 0, 4.905, -63.1896, 0, -25.8766)
+
+[node name="Root Scene4" parent="Rock" instance=ExtResource("6_bjmek")]
+transform = Transform3D(3.565, 0, 0, 0, 3.565, 0, 0, 0, 3.565, -64.1229, -0.167981, 21.879)
+
+[node name="Root Scene5" parent="Rock" instance=ExtResource("6_bjmek")]
+transform = Transform3D(3.81, 0, 0, 0, 3.81, 0, 0, 0, 3.81, -21.6397, 0, 63.413)
+
+[node name="Root Scene6" parent="Rock" instance=ExtResource("6_bjmek")]
+transform = Transform3D(4.69, 0, 0, 0, 4.69, 0, 0, 0, 4.69, -4.44385, 0, 61.1818)
+
+[node name="Root Scene7" parent="Rock" instance=ExtResource("6_bjmek")]
+transform = Transform3D(5.535, 0, 0, 0, 5.535, 0, 0, 0, 5.535, -67.3723, -1.90735e-06, -4.62148)
+
+[node name="Root Scene" parent="Rock" instance=ExtResource("6_bjmek")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.0866, 0, -59.1645)
+
+[node name="unpass" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="unpass"]
+transform = Transform3D(64.43, 0, 0, 0, 64.43, 0, 0, 0, 64.43, 50.6933, 0, -0.401115)
+shape = SubResource("BoxShape3D_lquwl")
+debug_color = Color(0.975015, 0, 0.422536, 0.42)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="unpass"]
+transform = Transform3D(64, 0, 0, 0, 64, 0, 0, 0, 64, -60.8308, 0, 0)
+shape = SubResource("BoxShape3D_lquwl")
+debug_color = Color(0.975015, 0, 0.422536, 0.42)
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="unpass"]
+transform = Transform3D(64, 0, 0, 0, 64, 0, 0, 0, 64, -7.36523, 6.50391, 60.1561)
+shape = SubResource("BoxShape3D_7mycd")
+debug_color = Color(0.970208, 0, 0.456254, 0.42)
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="unpass"]
+transform = Transform3D(64, 0, 0, 0, 64, 0, 0, 0, 64, 0, 0, -55.4861)
+shape = SubResource("BoxShape3D_7mycd")
+debug_color = Color(0.970208, 0, 0.456254, 0.42)
+
+[node name="Tower" parent="." instance=ExtResource("7_0omhw")]
+transform = Transform3D(13.785, 0, -9.80263, 0, 16.915, 0, 9.80263, 0, 13.785, -48.9797, 12.9114, -51.7903)

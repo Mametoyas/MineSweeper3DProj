@@ -1,0 +1,422 @@
+[gd_scene load_steps=25 format=3 uid="uid://po63m4srixl4"]
+
+[ext_resource type="Script" uid="uid://buxsk3bw1g2r0" path="res://Scenes/demo_scene.gd" id="1_foia1"]
+[ext_resource type="PackedScene" uid="uid://m6b3akjblgoy" path="res://kinght/Knight.tscn" id="1_jpanv"]
+[ext_resource type="PackedScene" uid="uid://0t0qb3qjq6my" path="res://Scenes/PlatformRed.tscn" id="2_4lh3q"]
+[ext_resource type="PackedScene" uid="uid://dkgqm5udaoyau" path="res://enemy/Skeleton_Rogue.tscn" id="2_sx1u2"]
+[ext_resource type="PackedScene" uid="uid://dlwt4csvr3f8h" path="res://enemy/Skeleton_Warrior.tscn" id="4_tse6v"]
+[ext_resource type="Script" uid="uid://po8axqax4if2" path="res://Scenes/control.gd" id="5_jpanv"]
+[ext_resource type="PackedScene" uid="uid://m3v7chge8bfs" path="res://map asset/Castle.tscn" id="5_r4wj5"]
+[ext_resource type="Script" uid="uid://en2h3dvj6kx3" path="res://Scripts/GameManager.gd" id="6_8fvkd"]
+[ext_resource type="PackedScene" uid="uid://b2y0rq551pryl" path="res://map asset/Elm tree.tscn" id="6_r4p77"]
+[ext_resource type="PackedScene" uid="uid://b46nqn1jxqyer" path="res://map asset/Valley Terrain.tscn" id="7_3tqca"]
+[ext_resource type="PackedScene" uid="uid://b4ioih73fhms5" path="res://enemy/Skeleton_Minion.tscn" id="7_foia1"]
+[ext_resource type="Texture2D" uid="uid://bosqvhnrjgcmc" path="res://ui/skill_tornado.png" id="7_r4wj5"]
+[ext_resource type="PackedScene" uid="uid://qwimcnriw662" path="res://map asset/Bush.glb" id="8_8ep1j"]
+[ext_resource type="PackedScene" uid="uid://bf7hd4tepba6n" path="res://map asset/Rock Medium.tscn" id="8_sx1u2"]
+[ext_resource type="Texture2D" uid="uid://be2ir3aaafq04" path="res://map asset/vecteezy_panorama-sky-with-cloud-on-a-sunny-day_2984147.jpg" id="12_tse6v"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_r4wj5"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_r4p77"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_okl2h"]
+next_pass = SubResource("CanvasItemMaterial_r4p77")
+diffuse_mode = 1
+albedo_color = Color(4.21144e-07, 0.385176, 0.0847318, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3tqca"]
+size = Vector3(1, 3.9693, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sx1u2"]
+size = Vector3(26.333, 1, 0.0492554)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ad2i4"]
+panorama = ExtResource("12_tse6v")
+
+[sub_resource type="Sky" id="Sky_3tqca"]
+sky_material = SubResource("PanoramaSkyMaterial_ad2i4")
+
+[sub_resource type="Environment" id="Environment_g4ka7"]
+background_mode = 2
+sky = SubResource("Sky_3tqca")
+ambient_light_source = 2
+ambient_light_color = Color(0.662745, 0.694118, 0.772549, 1)
+ambient_light_energy = 1.15
+tonemap_mode = 2
+tonemap_exposure = 0.75
+ssr_enabled = true
+ssao_enabled = true
+ssao_radius = 0.45
+ssao_intensity = 1.0
+ssao_power = 15.0
+ssil_enabled = true
+sdfgi_use_occlusion = true
+glow_enabled = true
+glow_intensity = 2.0
+fog_light_color = Color(0.647059, 0.678431, 0.72549, 1)
+volumetric_fog_temporal_reprojection_enabled = false
+adjustment_enabled = true
+adjustment_brightness = 1.06
+adjustment_contrast = 0.95
+adjustment_saturation = 1.09
+
+[sub_resource type="Curve3D" id="Curve3D_foia1"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -22.0204, 0.368993, 36.3814, 0, 0, 0, 0, 0, 0, -26.62, 0.11166, 30.9713, 0, 0, 0, 0, 0, 0, -29.907, 0.237117, 27.5426, 0, 0, 0, 0, 0, 0, -33.2478, 0.181093, 16.8958, 0, 0, 0, 0, 0, 0, -32.6625, 0.0213628, 9.4631, 0, 0, 0, 0, 0, 0, -33.5281, 0.0566497, -0.66626, 0, 0, 0, 0, 0, 0, -32.9667, 0.147037, -8.96693, 0, 0, 0, 0, 0, 0, -32.2796, 0.0666471, -20.5837, 0, 0, 0, 0, 0, 0, -27.1636, 0.0212483, -30.9495, 0, 0, 0, 0, 0, 0, -19.1579, 0.059268, -36.5098, 0, 0, 0, 0, 0, 0, -6.94222, 0.113406, -37.7531, 0, 0, 0, 0, 0, 0, -0.334029, 0, -37.8712, 0, 0, 0, 0, 0, 0, 9.25185, 0.168767, -37.47, 0, 0, 0, 0, 0, 0, 17.5078, 0, -37.5946, 0, 0, 0, 0, 0, 0, 22.6468, 0.168326, -34.313, 0, 0, 0, 0, 0, 0, 28.4308, 0.167466, -28.188, 0, 0, 0, 0, 0, 0, 30.939, 0.1949, -18.6448, 0, 0, 0, 0, 0, 0, 32.4451, 0, -4.26228, 0, 0, 0, 0, 0, 0, 31.8918, 0, 2.23821, 0, 0, 0, 0, 0, 0, 31.5405, 0.355902, 10.4656, 0, 0, 0, 0, 0, 0, 31.5573, 0.147974, 15.5516, 0, 0, 0, 0, 0, 0, 28.7107, 0, 25.0591, 0, 0, 0, 0, 0, 0, 24.1827, 0.369551, 31.8194, 0, 0, 0, 0, 0, 0, 19.3058, 0, 35.1556, 0, 0, 0, 0, 0, 0, 10.6322, 0.465052, 36.5046, 0, 0, 0, 0, 0, 0, 1.68071, 0.532822, 36.8994, 0, 0, 0, 0, 0, 0, -8.21761, 0, 37.5069, 0, 0, 0, 0, 0, 0, -16.7269, 0.20154, 37.3631),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 28
+
+[node name="DemoScene" type="Node3D"]
+script = ExtResource("1_foia1")
+enemy_scenes = Array[PackedScene]([ExtResource("7_foia1"), ExtResource("2_sx1u2"), ExtResource("4_tse6v")])
+
+[node name="Player" parent="." instance=ExtResource("1_jpanv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.38997, 0)
+
+[node name="Platforms" type="Node3D" parent="."]
+
+[node name="PlatformRed" parent="Platforms" instance=ExtResource("2_4lh3q")]
+transform = Transform3D(36.588, 0, 0, 0, 0.393, 0, 0, 0, 41.244, 0.0649705, 3, 0.0767078)
+visible = false
+
+[node name="map" type="Node3D" parent="Platforms"]
+
+[node name="castle" parent="Platforms" instance=ExtResource("5_r4wj5")]
+transform = Transform3D(26.15, 0, 0, 0, 26.15, 0, 0, 0, 26.15, -11.7883, 1.75616, -43.8643)
+
+[node name="StaticBody3D" type="MeshInstance3D" parent="Platforms"]
+transform = Transform3D(144.445, 0, 0, 0, 0.39, 0, 0, 0, 213.365, 0, 3.27434, 0)
+mesh = SubResource("BoxMesh_r4wj5")
+surface_material_override/0 = SubResource("StandardMaterial3D_okl2h")
+
+[node name="Tree" type="Node3D" parent="Platforms"]
+
+[node name="Elm tree" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.1115, 3.39312, -29.6894)
+
+[node name="Elm tree2" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.6743, 3.39312, -20.4833)
+
+[node name="Elm tree3" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.7537, 3.39312, -12.057)
+
+[node name="Elm tree4" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.7615, 3.39312, 0.412476)
+
+[node name="Elm tree5" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.4747, 1.53678, 11.7086)
+
+[node name="Elm tree6" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.21, 3.39312, 21.3301)
+
+[node name="Elm tree7" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(-1.14909, 0, -0.11672, 0, 1.155, 0, 0.11672, 0, -1.14909, -25.3005, 3.08721, 30.8072)
+
+[node name="Elm tree8" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.02678, 3.39312, 34.5522)
+
+[node name="Elm tree9" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.23726, 3.39312, 34.9132)
+
+[node name="Elm tree10" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.438, 3.39312, 34.717)
+
+[node name="Elm tree11" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.649, 3.39312, 30.4898)
+
+[node name="Elm tree12" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.1617, 3.39312, 30.8397)
+
+[node name="Elm tree13" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.3762, 3.39312, 19.7537)
+
+[node name="Elm tree14" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5412, 3.39312, 12.5229)
+
+[node name="Elm tree15" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.9127, 3.39311, 1.56568)
+
+[node name="Elm tree16" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.9635, 3.39313, -10.4888)
+
+[node name="Elm tree17" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.2942, 3.39313, -18.5521)
+
+[node name="Elm tree18" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.158, 3.39313, -27.6318)
+
+[node name="Elm tree19" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.8467, 3.39312, -35.2575)
+
+[node name="Elm tree20" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7295, 3.39312, -36.8174)
+
+[node name="Elm tree21" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.8997, 3.39312, -35.1943)
+
+[node name="Elm tree22" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.9281, 3.68132, -39.8858)
+
+[node name="Elm tree23" parent="Platforms/Tree" instance=ExtResource("6_r4p77")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.1537, 2.54339, -26.2987)
+
+[node name="Valley Terrain" parent="Platforms/Tree" instance=ExtResource("7_3tqca")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.685, 34.017)
+
+[node name="Valley Terrain" parent="Platforms/Tree/Valley Terrain" instance=ExtResource("7_3tqca")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -9.25139e-06, -0.685, 139.841)
+
+[node name="Root Scene" parent="Platforms/Tree" instance=ExtResource("8_8ep1j")]
+transform = Transform3D(2.06, 0, 0, 0, 2.06, 0, 0, 0, 2.06, 27.6242, 3.68162, 9.69081)
+
+[node name="Rock" type="Node3D" parent="Platforms"]
+
+[node name="Root Scene" parent="Platforms/Rock" instance=ExtResource("8_sx1u2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.0417, 3.25536, 7)
+
+[node name="Root Scene2" parent="Platforms/Rock" instance=ExtResource("8_sx1u2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.0305, 3.41649, -17.4712)
+
+[node name="Root Scene3" parent="Platforms/Rock" instance=ExtResource("8_sx1u2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.7706, 3.6433, 34.6505)
+
+[node name="Root Scene4" parent="Platforms/Rock" instance=ExtResource("8_sx1u2")]
+transform = Transform3D(3.52, 0, 0, 0, 3.52, 0, 0, 0, 3.52, -3.38221, 3.55424, -45.6503)
+
+[node name="wall" type="StaticBody3D" parent="Platforms"]
+transform = Transform3D(0.145, 0, 0, 0, 1, 0, 0, 0, 4.415, 35.1716, -24.012, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Platforms/wall"]
+transform = Transform3D(21.54, 0, 0, 0, 21.54, 0, 0, 0, 21.54, 0, 26.9425, 0)
+shape = SubResource("BoxShape3D_3tqca")
+debug_color = Color(0.988651, 0, 0.29957, 0.42)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Platforms/wall"]
+transform = Transform3D(24.82, 0, 0, 0, 24.82, 0, 0, 0, 24.82, -496.833, 26.9425, 0)
+shape = SubResource("BoxShape3D_3tqca")
+debug_color = Color(0.988651, 0, 0.29957, 0.42)
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Platforms/wall"]
+transform = Transform3D(29.775, 0, 0, 0, 29.775, 0, 0, 0, 29.775, -217.559, 35.3277, 9.60058)
+shape = SubResource("BoxShape3D_sx1u2")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Platforms/wall"]
+transform = Transform3D(29.775, 0, 0, 0, 29.775, 0, 0, 0, 29.775, -217.559, 35.3277, -9.56759)
+shape = SubResource("BoxShape3D_sx1u2")
+
+[node name="bush" type="Node3D" parent="Platforms"]
+
+[node name="Root Scene" parent="Platforms/bush" instance=ExtResource("8_8ep1j")]
+transform = Transform3D(2.92, 0, 0, 0, 2.92, 0, 0, 0, 2.92, 1.69112, 3.68162, -39.5116)
+
+[node name="Root Scene2" parent="Platforms/bush" instance=ExtResource("8_8ep1j")]
+transform = Transform3D(2.705, 0, 0, 0, 2.705, 0, 0, 0, 2.705, -27.292, 3.68162, 26.2195)
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_g4ka7")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.223057, -0.706065, -0.6721, -0.391306, -0.696337, 0.60166, -0.892819, 0.128792, -0.43161, 14.931, 91.3764, -17.5905)
+light_color = Color(1, 0.945098, 0.878431, 1)
+light_energy = 0.1
+shadow_enabled = true
+
+[node name="Extras" type="Node3D" parent="."]
+
+[node name="SpawnPosition" type="Marker3D" parent="Extras"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+
+[node name="GameManager" type="Node3D" parent="."]
+script = ExtResource("6_8fvkd")
+
+[node name="userinterface" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="userinterface"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 532.0
+offset_bottom = 178.0
+script = ExtResource("5_jpanv")
+
+[node name="HP_Back" type="ColorRect" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 410.0
+offset_bottom = 50.0
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="HP_Fill" type="ColorRect" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 410.0
+offset_bottom = 50.0
+color = Color(0, 1, 0.4, 1)
+
+[node name="HP_Label" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 162.0
+offset_top = 15.0
+offset_right = 218.0
+offset_bottom = 38.0
+text = "100%"
+
+[node name="EXP_Back" type="ColorRect" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 50.0
+offset_right = 360.0
+offset_bottom = 90.0
+color = Color(0.133333, 0.133333, 0.133333, 1)
+
+[node name="EXP_Fill" type="ColorRect" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 50.0
+offset_right = 360.0
+offset_bottom = 90.0
+color = Color(0, 0.666667, 1, 1)
+
+[node name="EXP_Label" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 57.0
+offset_right = 217.0
+offset_bottom = 80.0
+text = "Lv. 1"
+
+[node name="ColorRect" type="ColorRect" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 90.0
+offset_right = 90.0
+offset_bottom = 130.0
+color = Color(0.851006, 0.716297, 1.92523e-06, 1)
+
+[node name="Level_Label" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 98.0
+offset_right = 63.0
+offset_bottom = 121.0
+text = "Lv. 1"
+
+[node name="DamageFlash" type="ColorRect" parent="userinterface/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(49.532, 30.0871)
+mouse_filter = 2
+color = Color(1, 0, 0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="userinterface/Control"]
+position = Vector2(59.84, 836.84)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("7_r4wj5")
+
+[node name="SkillCooldownLabel" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 99.84
+offset_top = 824.84
+offset_right = 187.84
+offset_bottom = 847.84
+text = "Skill Ready!"
+
+[node name="UpgradePanel" type="Control" parent="userinterface/Control"]
+anchors_preset = 0
+offset_left = 1247.0
+offset_top = 456.0
+offset_right = 1287.0
+offset_bottom = 496.0
+scale = Vector2(2, 2)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="userinterface/Control/UpgradePanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="userinterface/Control/UpgradePanel/VBoxContainer"]
+layout_mode = 2
+text = "LEVEL UP! Choose an upgrade:"
+
+[node name="Button1" type="Button" parent="userinterface/Control/UpgradePanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="userinterface/Control/UpgradePanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button3" type="Button" parent="userinterface/Control/UpgradePanel/VBoxContainer"]
+layout_mode = 2
+
+[node name="ComboLabel" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 1505.0
+offset_top = 29.0
+offset_right = 1545.0
+offset_bottom = 52.0
+scale = Vector2(5, 5)
+
+[node name="BattleText_Crit" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 790.0
+offset_top = 660.0
+offset_right = 830.0
+offset_bottom = 683.0
+
+[node name="BattleText_Berserk" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 790.0
+offset_top = 748.0
+offset_right = 830.0
+offset_bottom = 771.0
+
+[node name="walk" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 28.84
+offset_top = 876.84
+offset_right = 148.84
+offset_bottom = 925.84
+text = "w,a,s,d for walk
+"
+
+[node name="attack" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 166.84
+offset_top = 876.84
+offset_right = 309.84
+offset_bottom = 925.84
+text = "left click for attack
+"
+
+[node name="dash" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 26.84
+offset_top = 906.84
+offset_right = 129.84
+offset_bottom = 929.84
+text = "shift for dash"
+
+[node name="skill" type="Label" parent="userinterface/Control"]
+layout_mode = 0
+offset_left = 168.84
+offset_top = 906.84
+offset_right = 304.84
+offset_bottom = 929.84
+text = "right click for skill"
+
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.47917, 0)
+curve = SubResource("Curve3D_foia1")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(0.761869, -0.0234574, 0.647307, -9.31323e-10, 0.999344, 0.0362147, -0.647732, -0.0275909, 0.761369, -22.0204, 0.368993, 36.3814)
